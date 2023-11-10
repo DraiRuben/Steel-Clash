@@ -67,6 +67,7 @@ public class PlayerActionExecutor : MonoBehaviour
                     || m_player.m_playerMovementInput.x<0 && m_player.Rb.velocity.x > 0)
                 {
                     m_timeSinceMovementInput = 0f;
+                    m_player.Rb.velocity = new(0, m_player.Rb.velocity.y);
                 }
                 else
                 {
@@ -79,10 +80,8 @@ public class PlayerActionExecutor : MonoBehaviour
             else
             {
                 m_timeSinceMovementInput = 0f;
-                if (Mathf.Abs(m_player.Rb.velocity.x) > 0.5f)
-                    m_player.Rb.velocity = new(m_player.Rb.velocity.x * (1 - (m_movementInfo.GroundDrag * Time.fixedDeltaTime)), m_player.Rb.velocity.y);
-                else
-                    m_player.Rb.velocity = new(0,m_player.Rb.velocity.y);
+                m_player.Rb.velocity = Mathf.Abs(m_player.Rb.velocity.x) > 0.5f? new(m_player.Rb.velocity.x * (1 - m_movementInfo.GroundDrag * Time.fixedDeltaTime), m_player.Rb.velocity.y): new(0, m_player.Rb.velocity.y);
+
             }
         }
     }

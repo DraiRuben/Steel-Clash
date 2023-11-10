@@ -512,14 +512,14 @@ MonoBehaviour:
     GroundMovementSpeed: 7
     AirMovementSpeed: 7
     TimeToReachMaxSpeed: 0.4
-    GroundDrag: 0.7
+    GroundDrag: 5
     AirDrag: 0.7
     m_movementCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
+        value: 0.09964761
         inSlope: 2
         outSlope: 2
         tangentMode: 0
@@ -695,7 +695,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 158cbb956036c82448433d261a2a2a58, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -800,7 +800,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 5291326874814843091}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 158cbb956036c82448433d261a2a2a58, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
