@@ -36,8 +36,11 @@ public class PlayerActionExecutor : MonoBehaviour
     [Serializable]
     public struct MovementInfo
     {
-        public float m_movementSpeed;
-        public float m_timeToReachMaxSpeed;
+        public float GroundMovementSpeed;
+        public float AirMovementSpeed;
+        public float TimeToReachMaxSpeed;
+        public float GroundDrag;
+        public float AirDrag;
         public AnimationCurve m_movementCurve;
     }
     private bool CanUseAction(PlayerInputActionType actionType)
@@ -67,15 +70,19 @@ public class PlayerActionExecutor : MonoBehaviour
                 }
                 else
                 {
-                    m_timeSinceMovementInput += Time.fixedDeltaTime / m_movementInfo.m_timeToReachMaxSpeed;
+                    m_timeSinceMovementInput += Time.fixedDeltaTime / m_movementInfo.TimeToReachMaxSpeed;
                 }
-                m_player.Rb.velocity = new(
-                    m_player.m_playerMovementInput.x * m_movementInfo.m_movementSpeed * m_movementInfo.m_movementCurve.Evaluate(m_timeSinceMovementInput),
+                m_player.Rb.velocity = new (
+                    m_player.m_playerMovementInput.x * m_movementInfo.GroundMovementSpeed * m_movementInfo.m_movementCurve.Evaluate(m_timeSinceMovementInput),
                     m_player.Rb.velocity.y);
             }
             else
             {
                 m_timeSinceMovementInput = 0f;
+                if (Mathf.Abs(m_player.Rb.velocity.x) > 0.5f)
+                    m_player.Rb.velocity = new(m_player.Rb.velocity.x * (1 - (m_movementInfo.GroundDrag * Time.fixedDeltaTime)), m_player.Rb.velocity.y);
+                else
+                    m_player.Rb.velocity = new(0,m_player.Rb.velocity.y);
             }
         }
     }
