@@ -7,7 +7,6 @@ public class InputBuffer : MonoBehaviour
     [SerializeField] private PlayerMovesDictionary ActionInputBuffer;
 
     private PlayerActionExecutor m_actionExecutor;
-    private PlayerInputActionType m_currentAction;
 
     private int m_remainingRecoveryFrames = 0;
     private void Awake()
@@ -41,30 +40,16 @@ public class InputBuffer : MonoBehaviour
                 action.TimerSinceInput--;
         }
     }
-
-
 }
 [Serializable]
 public class PlayerInputAction
 {
     public int MaxTimer; // this is a frame ammount, not seconds
     [HideInInspector] public int TimerSinceInput; //same thing here
-    public int StartupFrames;
-    public int ActiveFrames;
-    public int RecoveryFrames;
-    public int Damage;
-    public static implicit operator PlayerInputAction((int _refreshAmount, int _startupFrames, int _activeFrames, int _recoveryFrames, int _damage) values)
-    {
-        return new PlayerInputAction()
-        {
-            MaxTimer = values._refreshAmount,
-            StartupFrames = values._startupFrames,
-            ActiveFrames = values._activeFrames,
-            RecoveryFrames = values._recoveryFrames,
-            Damage = values._damage,
-        };
-    }
-
+    public AnimationFrameInfo StartupFrameInfo;
+    public AnimationFrameInfo ActiveFrames;
+    public AnimationFrameInfo RecoveryFrames;
+    public AnimationFrameInfo Damage;
 }
 [Serializable]
 public enum PlayerInputActionType
@@ -74,4 +59,10 @@ public enum PlayerInputActionType
     SpecialAttack,
     UpSpecialAttack,
     Jump,
+}
+[Serializable]
+public struct AnimationFrameInfo
+{
+    public int FrameDuration;
+    public int FrameAnimationAmount;
 }

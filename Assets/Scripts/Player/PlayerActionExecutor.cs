@@ -3,21 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerActionExecutor : MonoBehaviour
 {
     [SerializeField] private JumpInfo m_jumpInfo;
-    [SerializeField] private MovementInfo m_movementInfo;
+    [SerializeField] private MovementInfo m_movementInfo; 
+    private PlayerInputActionType m_currentAction;
     private int m_currentJumpAmount = 0;
     private float m_timeSinceMovementInput = 0f;
     private float m_timeSinceLastJump = 0f;
+
+    private PlayerAnimationManager m_animationManager;
     private PlayerInputMapper m_player;
     private InputBuffer m_inputBuffer;
-
+    private Animator m_animator;
     private void Awake()
     {
+        m_animator = GetComponent<Animator>();
         m_inputBuffer = GetComponent<InputBuffer>();
         m_player = GetComponent<PlayerInputMapper>();
+        m_animationManager = GetComponent<PlayerAnimationManager>();
     }
     [Serializable]
     public struct JumpInfo
@@ -73,7 +79,7 @@ public class PlayerActionExecutor : MonoBehaviour
             }
         }
     }
-    private void ExecuteAction(PlayerInputActionType actionType)
+    private void ExecuteAction(PlayerInputActionType actionType, PlayerInputAction actionInfo)
     {
         switch (actionType)
         {
@@ -85,6 +91,10 @@ public class PlayerActionExecutor : MonoBehaviour
                     m_currentJumpAmount++;
                     StartCoroutine(TryHoldJump());
                 }
+                break;
+            default:
+                m_animator.SetInteger("State", (int)actionType + 5);
+                m_currentAction = actionType;
                 break;
         }
     }
@@ -116,7 +126,7 @@ public class PlayerActionExecutor : MonoBehaviour
             {
                 if (CanUseAction(validAction.Key))
                 {
-                    ExecuteAction(validAction.Key);
+                    ExecuteAction(validAction.Key, validAction.Value);
                     foreach (PlayerInputAction action in ActionInputBuffer.Values)
                     {
                         action.TimerSinceInput = 0;

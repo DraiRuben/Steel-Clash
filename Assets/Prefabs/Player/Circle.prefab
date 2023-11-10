@@ -234,34 +234,74 @@ MonoBehaviour:
     m_values:
     - MaxTimer: 30
       TimerSinceInput: 0
-      StartupFrames: 3
-      ActiveFrames: 10
-      RecoveryFrames: 20
-      Damage: 4
+      StartupFrameInfo:
+        FrameDuration: 3
+        FrameAnimationAmount: 0
+      ActiveFrames:
+        FrameDuration: 10
+        FrameAnimationAmount: 0
+      RecoveryFrames:
+        FrameDuration: 20
+        FrameAnimationAmount: 0
+      Damage:
+        FrameDuration: 0
+        FrameAnimationAmount: 0
     - MaxTimer: 30
       TimerSinceInput: 0
-      StartupFrames: 7
-      ActiveFrames: 5
-      RecoveryFrames: 6
-      Damage: 4
+      StartupFrameInfo:
+        FrameDuration: 7
+        FrameAnimationAmount: 0
+      ActiveFrames:
+        FrameDuration: 5
+        FrameAnimationAmount: 0
+      RecoveryFrames:
+        FrameDuration: 6
+        FrameAnimationAmount: 0
+      Damage:
+        FrameDuration: 4
+        FrameAnimationAmount: 0
     - MaxTimer: 30
       TimerSinceInput: 0
-      StartupFrames: 15
-      ActiveFrames: 8
-      RecoveryFrames: 20
-      Damage: 15
+      StartupFrameInfo:
+        FrameDuration: 15
+        FrameAnimationAmount: 0
+      ActiveFrames:
+        FrameDuration: 8
+        FrameAnimationAmount: 0
+      RecoveryFrames:
+        FrameDuration: 20
+        FrameAnimationAmount: 0
+      Damage:
+        FrameDuration: 15
+        FrameAnimationAmount: 0
     - MaxTimer: 30
       TimerSinceInput: 0
-      StartupFrames: 6
-      ActiveFrames: 10
-      RecoveryFrames: 10
-      Damage: 10
+      StartupFrameInfo:
+        FrameDuration: 6
+        FrameAnimationAmount: 0
+      ActiveFrames:
+        FrameDuration: 10
+        FrameAnimationAmount: 0
+      RecoveryFrames:
+        FrameDuration: 10
+        FrameAnimationAmount: 0
+      Damage:
+        FrameDuration: 10
+        FrameAnimationAmount: 0
     - MaxTimer: 30
       TimerSinceInput: 0
-      StartupFrames: -1
-      ActiveFrames: -1
-      RecoveryFrames: -1
-      Damage: -1
+      StartupFrameInfo:
+        FrameDuration: 30
+        FrameAnimationAmount: 0
+      ActiveFrames:
+        FrameDuration: -1
+        FrameAnimationAmount: 0
+      RecoveryFrames:
+        FrameDuration: -1
+        FrameAnimationAmount: 0
+      Damage:
+        FrameDuration: -1
+        FrameAnimationAmount: 0
 --- !u!114 &5604891523930193940
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,5 +5,4 @@ public class AnySerializableDictionaryPropertyDrawer : SerializableDictionaryPro
 
 
 
-
 public class AnySerializableDictionaryStoragePropertyDrawer : SerializableDictionaryStoragePropertyDrawer { }
