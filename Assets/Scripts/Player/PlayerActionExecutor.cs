@@ -9,7 +9,8 @@ using UnityEngine.Events;
 public class PlayerActionExecutor : MonoBehaviour
 {
     [SerializeField] private JumpInfo m_jumpInfo;
-    [SerializeField] private MovementInfo m_movementInfo; 
+    [SerializeField] private MovementInfo m_movementInfo;
+    public PlayerFeet m_feet;
     private int m_currentJumpAmount = 0;
     private float m_timeSinceMovementInput = 0f;
     private float m_timeSinceLastJump = 0f;
@@ -78,7 +79,7 @@ public class PlayerActionExecutor : MonoBehaviour
                     m_timeSinceMovementInput += Time.fixedDeltaTime / m_movementInfo.TimeToReachMaxSpeed;
                 }
                 m_player.Rb.velocity = new (
-                    m_player.m_playerMovementInput.x * m_movementInfo.GroundMovementSpeed * m_movementInfo.m_movementCurve.Evaluate(m_timeSinceMovementInput),
+                    m_player.m_playerMovementInput.x * (m_feet.IsGrounded?m_movementInfo.GroundMovementSpeed:m_movementInfo.AirMovementSpeed) * m_movementInfo.m_movementCurve.Evaluate(m_timeSinceMovementInput),
                     m_player.Rb.velocity.y);
 
                 if (m_inputBuffer.CanAct)
@@ -88,7 +89,9 @@ public class PlayerActionExecutor : MonoBehaviour
             {
                 m_timeSinceMovementInput = 0f;
                 //need to implement air drag
-                m_player.Rb.velocity = Mathf.Abs(m_player.Rb.velocity.x) > 0.5f? new(m_player.Rb.velocity.x * (1 - m_movementInfo.GroundDrag * Time.fixedDeltaTime), m_player.Rb.velocity.y): new(0, m_player.Rb.velocity.y);
+                m_player.Rb.velocity = Mathf.Abs(m_player.Rb.velocity.x) > 0.5f?
+                    new(m_player.Rb.velocity.x * (1 - (m_feet.IsGrounded?m_movementInfo.GroundDrag:m_movementInfo.AirDrag) * Time.fixedDeltaTime), m_player.Rb.velocity.y)
+                    : new(0, m_player.Rb.velocity.y);
                 
                 if (m_inputBuffer.CanAct)
                     m_animator.SetInteger("State", 0);
@@ -102,6 +105,7 @@ public class PlayerActionExecutor : MonoBehaviour
             case PlayerInputActionType.Jump:
                 if(m_timeSinceLastJump>= m_jumpInfo.JumpCooldown)
                 {
+                    m_animator.SetInteger("State", (int)actionType + 4);
                     m_player.Rb.velocity = new(m_player.Rb.velocity.x, 0); //resets y so that the impulse is the same when falling and on ground
                     m_player.Rb.AddForce(Vector2.up * m_jumpInfo.JumpStrength, ForceMode2D.Impulse);
                     m_currentJumpAmount++;

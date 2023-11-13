@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 4900790169658650902}
   - component: {fileID: 7867203670533993921}
   - component: {fileID: 133342554511989044}
+  - component: {fileID: 8698713282178430685}
   m_Layer: 0
   m_Name: Feet
   m_TagString: Untagged
@@ -214,6 +215,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8698713282178430685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886262048767826608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f840fa76ce0183747b91fec3979d40ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsGrounded: 0
 --- !u!1 &1934149075077818363
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,7 +529,7 @@ MonoBehaviour:
     GroundMovementSpeed: 7
     AirMovementSpeed: 7
     TimeToReachMaxSpeed: 0.4
-    GroundDrag: 5
+    GroundDrag: 9.5
     AirDrag: 0.7
     m_movementCurve:
       serializedVersion: 2
@@ -541,6 +555,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  m_feet: {fileID: 8698713282178430685}
 --- !u!114 &5406983772072192466
 MonoBehaviour:
   m_ObjectHideFlags: 0

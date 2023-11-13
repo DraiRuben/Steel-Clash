@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public PlayerFeet Target;
+    private PolygonCollider2D m_collider;
+    private void Awake()
     {
-        
+        m_collider = GetComponent<PolygonCollider2D>();
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        if(m_collider.bounds.max.y < Target.Collider.bounds.max.y)
+        {
+            m_collider.isTrigger = false;
+        }
+        else
+        {
+            m_collider.isTrigger = true;
+        }
     }
 }
