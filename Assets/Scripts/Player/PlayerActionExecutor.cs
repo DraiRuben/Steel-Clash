@@ -17,9 +17,11 @@ public class PlayerActionExecutor : MonoBehaviour
     private PlayerAnimationManager m_animationManager;
     private PlayerInputMapper m_player;
     private InputBuffer m_inputBuffer;
+    private SpriteRenderer[] m_spriteRenderers;
     private Animator m_animator;
     private void Awake()
     {
+        m_spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         m_animator = GetComponent<Animator>();
         m_inputBuffer = GetComponent<InputBuffer>();
         m_player = GetComponent<PlayerInputMapper>();
@@ -61,6 +63,8 @@ public class PlayerActionExecutor : MonoBehaviour
         {
             if(m_player.m_playerMovementInput.x != 0f)
             {
+                transform.rotation = Quaternion.Euler(0, m_player.m_playerMovementInput.x < 0 ? 180 : 0, 0);
+
                 //if we suddenly change directions, don't keep the current curve's value, reset it as if we stopped moving
                 //so that the player doesn't have sudden changes in movement and teleports around
                 if(m_player.m_playerMovementInput.x>0 && m_player.Rb.velocity.x<0
@@ -83,6 +87,7 @@ public class PlayerActionExecutor : MonoBehaviour
             else
             {
                 m_timeSinceMovementInput = 0f;
+                //need to implement air drag
                 m_player.Rb.velocity = Mathf.Abs(m_player.Rb.velocity.x) > 0.5f? new(m_player.Rb.velocity.x * (1 - m_movementInfo.GroundDrag * Time.fixedDeltaTime), m_player.Rb.velocity.y): new(0, m_player.Rb.velocity.y);
                 
                 if (m_inputBuffer.CanAct)

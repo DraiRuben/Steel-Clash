@@ -13,14 +13,14 @@ TagManager:
   - UI
   - Ground
   - Platforms
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player1
+  - Player1Platforms
+  - Player2
+  - Player2Platforms
+  - Player3
+  - Player3Platforms
+  - Player4
+  - Player4Platforms
   - 
   - 
   - 
