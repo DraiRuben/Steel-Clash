@@ -40,6 +40,7 @@ public class PlayerInputAction
     public AnimationFrameInfo ActiveFrames;
     public AnimationFrameInfo RecoveryFrames;
     public int Damage;
+    public PlayerAttack Attack;
 }
 [Serializable]
 public enum PlayerInputActionType

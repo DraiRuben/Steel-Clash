@@ -228,6 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsGrounded: 0
+  Collider: {fileID: 0}
 --- !u!1 &1934149075077818363
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,6 +240,7 @@ GameObject:
   - component: {fileID: 6745052079208227936}
   - component: {fileID: 3824586785205786124}
   - component: {fileID: 7831280378946363794}
+  - component: {fileID: 6576297431437843864}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -358,6 +360,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6576297431437843864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934149075077818363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7551c4cb922399d4dbe31cda75bfedea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 0
 --- !u!1 &4974429354845731865
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,6 +447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2017017a24d8c6f448e9b83d2ca00648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ReduceRecovery: 0
 --- !u!114 &6288238806280935275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,6 +476,7 @@ MonoBehaviour:
         FrameDuration: 20
         FrameAnimationAmount: 1
       Damage: 0
+      Attack: {fileID: 0}
     - MaxTimer: 30
       TimerSinceInput: 0
       StartupFrameInfo:
@@ -472,6 +489,7 @@ MonoBehaviour:
         FrameDuration: 6
         FrameAnimationAmount: 3
       Damage: 4
+      Attack: {fileID: 6576297431437843864}
     - MaxTimer: 30
       TimerSinceInput: 0
       StartupFrameInfo:
@@ -481,9 +499,10 @@ MonoBehaviour:
         FrameDuration: 8
         FrameAnimationAmount: 3
       RecoveryFrames:
-        FrameDuration: 20
+        FrameDuration: 14
         FrameAnimationAmount: 1
       Damage: 15
+      Attack: {fileID: 6576297431437843864}
     - MaxTimer: 30
       TimerSinceInput: 0
       StartupFrameInfo:
@@ -496,6 +515,7 @@ MonoBehaviour:
         FrameDuration: 10
         FrameAnimationAmount: 5
       Damage: 10
+      Attack: {fileID: 6576297431437843864}
     - MaxTimer: 30
       TimerSinceInput: 0
       StartupFrameInfo:
@@ -508,6 +528,7 @@ MonoBehaviour:
         FrameDuration: -1
         FrameAnimationAmount: 0
       Damage: 0
+      Attack: {fileID: 0}
 --- !u!114 &846610792505087088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -735,9 +756,9 @@ GameObject:
   - component: {fileID: 5158442963855958452}
   - component: {fileID: 4315029125702488095}
   - component: {fileID: 5499024518856773461}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

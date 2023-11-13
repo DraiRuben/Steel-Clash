@@ -8,6 +8,7 @@ public class PlayerAnimationManager : MonoBehaviour
     private AnimationState m_currentAnimationState;
     public (PlayerInputActionType type, PlayerInputAction action) m_actionInfo;
     private Animator m_animator;
+    [HideInInspector] public bool ReduceRecovery;
     private void Awake()
     {
         m_animator = GetComponent<Animator>();
@@ -20,12 +21,18 @@ public class PlayerAnimationManager : MonoBehaviour
             m_currentAnimationState == AnimationState.ActiveFrames ? m_actionInfo.action.ActiveFrames :
             m_actionInfo.action.RecoveryFrames;
         float targetSpeed = (float)animationFrameInfo.FrameAnimationAmount/ ((float)animationFrameInfo.FrameDuration/5);
+        //for when an attack hit
+        if(m_currentAnimationState == AnimationState.RecoveryFrames && ReduceRecovery)
+        {
+            targetSpeed *= 2;
+        }
         m_animator.speed = targetSpeed;
     }
     public void EndAnimation()
     {
         m_animator.SetInteger("State", 0);
         m_animator.speed = 1f;
+        ReduceRecovery = false;
     }
     public enum AnimationState
     {

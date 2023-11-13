@@ -24,6 +24,6 @@ public class PlayerManager : MonoBehaviour
     }
     public void OnPlayerLeft(PlayerInput input)
     {
-        //nothing as of now, however we might need to display a disconnected icon on the UI of the concerned player
+        //nothing as of now, however we might want to display a disconnected icon on the UI of the concerned player
     }
 }

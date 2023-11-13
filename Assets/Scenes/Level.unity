@@ -5509,10 +5509,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: KnightCharacter
       objectReference: {fileID: 0}
-    - target: {fileID: 5291326874814843091, guid: 0037537d65f980d4e8d5c68509bc3b03, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

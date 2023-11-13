@@ -11,7 +11,7 @@ public class PlayerActionExecutor : MonoBehaviour
     [SerializeField] private JumpInfo m_jumpInfo;
     [SerializeField] private MovementInfo m_movementInfo;
     public PlayerFeet m_feet;
-    private int m_currentJumpAmount = 0;
+    [HideInInspector] public int CurrentJumpAmount = 0;
     private float m_timeSinceMovementInput = 0f;
     private float m_timeSinceLastJump = 0f;
 
@@ -48,9 +48,11 @@ public class PlayerActionExecutor : MonoBehaviour
     }
     private bool CanUseAction(PlayerInputActionType actionType)
     {
+        if (!m_inputBuffer.CanAct) return false;
+
         if (actionType == PlayerInputActionType.Jump)
         {
-            return m_currentJumpAmount < m_jumpInfo.ExtraJumpsAllowed + 1;
+            return CurrentJumpAmount < m_jumpInfo.ExtraJumpsAllowed + 1;
         }
         else
         {
@@ -108,7 +110,7 @@ public class PlayerActionExecutor : MonoBehaviour
                     m_animator.SetInteger("State", (int)actionType + 4);
                     m_player.Rb.velocity = new(m_player.Rb.velocity.x, 0); //resets y so that the impulse is the same when falling and on ground
                     m_player.Rb.AddForce(Vector2.up * m_jumpInfo.JumpStrength, ForceMode2D.Impulse);
-                    m_currentJumpAmount++;
+                    CurrentJumpAmount++;
                     StartCoroutine(TryHoldJump());
                 }
                 break;
@@ -116,6 +118,7 @@ public class PlayerActionExecutor : MonoBehaviour
                 m_animator.SetInteger("State", (int)actionType + 4); //0 for idle, 1 for walk, 2 for hurt, 3 for dizzy
                 m_animationManager.m_actionInfo = (actionType,actionInfo);
                 m_inputBuffer.CanAct = false;
+                if (actionInfo.Attack != null) actionInfo.Attack.Damage = actionInfo.Damage;
                 StartCoroutine(ActionStun());
                 break;
         }
@@ -164,9 +167,5 @@ public class PlayerActionExecutor : MonoBehaviour
                 }
             }
         }
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        m_currentJumpAmount = 0;
     }
 }
