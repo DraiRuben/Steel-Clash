@@ -438,13 +438,13 @@ MonoBehaviour:
       TimerSinceInput: 0
       StartupFrameInfo:
         FrameDuration: 3
-        FrameAnimationAmount: 0
+        FrameAnimationAmount: 2
       ActiveFrames:
         FrameDuration: 10
-        FrameAnimationAmount: 0
+        FrameAnimationAmount: 2
       RecoveryFrames:
         FrameDuration: 20
-        FrameAnimationAmount: 0
+        FrameAnimationAmount: 1
       Damage: 0
     - MaxTimer: 30
       TimerSinceInput: 0
@@ -462,13 +462,13 @@ MonoBehaviour:
       TimerSinceInput: 0
       StartupFrameInfo:
         FrameDuration: 15
-        FrameAnimationAmount: 0
+        FrameAnimationAmount: 2
       ActiveFrames:
         FrameDuration: 8
-        FrameAnimationAmount: 0
+        FrameAnimationAmount: 3
       RecoveryFrames:
         FrameDuration: 20
-        FrameAnimationAmount: 0
+        FrameAnimationAmount: 1
       Damage: 15
     - MaxTimer: 30
       TimerSinceInput: 0

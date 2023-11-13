@@ -59,9 +59,9 @@ public class PlayerActionExecutor : MonoBehaviour
     private void FixedUpdate()
     {
         m_timeSinceLastJump += Time.fixedDeltaTime;
-        if (Time.timeScale != 0 && m_inputBuffer.CanAct)
+        if (Time.timeScale != 0)
         {
-            if(m_player.m_playerMovementInput.x != 0f)
+            if(m_player.m_playerMovementInput.x != 0f && m_inputBuffer.CanAct)
             {
                 transform.rotation = Quaternion.Euler(0, m_player.m_playerMovementInput.x < 0 ? 180 : 0, 0);
 
