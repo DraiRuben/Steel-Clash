@@ -6,23 +6,27 @@ using UnityEngine;
 public class PlayerAnimationManager : MonoBehaviour
 {
     private AnimationState m_currentAnimationState;
-    private (PlayerInputActionType type, PlayerInputAction action) m_actionInfo;
+    public (PlayerInputActionType type, PlayerInputAction action) m_actionInfo;
     private Animator m_animator;
     private void Awake()
     {
         m_animator = GetComponent<Animator>();
     }
-    public void UpdateAnimatorSpeed(bool isNewAnimation = false) 
+    public void UpdateAnimatorSpeed(int isNewAnimation = 0) 
     {
-        m_currentAnimationState = isNewAnimation? AnimationState.StartupFrames: m_currentAnimationState.Next();
+        m_currentAnimationState = isNewAnimation == 1? AnimationState.StartupFrames: m_currentAnimationState.Next();
         AnimationFrameInfo animationFrameInfo =
             m_currentAnimationState == AnimationState.StartupFrames ? m_actionInfo.action.StartupFrameInfo :
             m_currentAnimationState == AnimationState.ActiveFrames ? m_actionInfo.action.ActiveFrames :
             m_actionInfo.action.RecoveryFrames;
-        float targetSpeed = 0.1f * m_actionInfo.action.ActiveFrames.FrameAnimationAmount / animationFrameInfo.FrameDuration;
+        float targetSpeed = (float)animationFrameInfo.FrameAnimationAmount/ ((float)animationFrameInfo.FrameDuration/5);
         m_animator.speed = targetSpeed;
     }
-
+    public void EndAnimation()
+    {
+        m_animator.SetInteger("State", 0);
+        m_animator.speed = 1f;
+    }
     public enum AnimationState
     {
         StartupFrames,

@@ -33,7 +33,7 @@ public class PlayerInputMapper : MonoBehaviour
     {
         if (ctx.performed)
         {
-
+            m_inputBuffer.TryDoAction(PlayerInputActionType.Attack);
         }
     }
     public void SpecialAttack(InputAction.CallbackContext ctx)
@@ -42,7 +42,11 @@ public class PlayerInputMapper : MonoBehaviour
         {
             if (m_playerMovementInput.y > 0)
             {
-
+                m_inputBuffer.TryDoAction(PlayerInputActionType.UpSpecialAttack);
+            }
+            else
+            {
+                m_inputBuffer.TryDoAction(PlayerInputActionType.SpecialAttack);
             }
         }
     }
@@ -50,7 +54,7 @@ public class PlayerInputMapper : MonoBehaviour
     {
         if (ctx.performed)
         {
-
+            m_inputBuffer.TryDoAction(PlayerInputActionType.Counter);
         }
     }
 }

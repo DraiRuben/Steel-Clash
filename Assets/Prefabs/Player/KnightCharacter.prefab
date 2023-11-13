@@ -354,6 +354,7 @@ GameObject:
   m_Component:
   - component: {fileID: 863318165282889880}
   - component: {fileID: 1807486201511769616}
+  - component: {fileID: 4172329195585466837}
   - component: {fileID: 6288238806280935275}
   - component: {fileID: 846610792505087088}
   - component: {fileID: 5406983772072192466}
@@ -405,6 +406,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4172329195585466837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974429354845731865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2017017a24d8c6f448e9b83d2ca00648, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6288238806280935275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,23 +445,19 @@ MonoBehaviour:
       RecoveryFrames:
         FrameDuration: 20
         FrameAnimationAmount: 0
-      Damage:
-        FrameDuration: 0
-        FrameAnimationAmount: 0
+      Damage: 0
     - MaxTimer: 30
       TimerSinceInput: 0
       StartupFrameInfo:
         FrameDuration: 7
-        FrameAnimationAmount: 0
+        FrameAnimationAmount: 2
       ActiveFrames:
         FrameDuration: 5
-        FrameAnimationAmount: 0
+        FrameAnimationAmount: 3
       RecoveryFrames:
         FrameDuration: 6
-        FrameAnimationAmount: 0
-      Damage:
-        FrameDuration: 4
-        FrameAnimationAmount: 0
+        FrameAnimationAmount: 3
+      Damage: 4
     - MaxTimer: 30
       TimerSinceInput: 0
       StartupFrameInfo:
@@ -460,23 +469,19 @@ MonoBehaviour:
       RecoveryFrames:
         FrameDuration: 20
         FrameAnimationAmount: 0
-      Damage:
-        FrameDuration: 15
-        FrameAnimationAmount: 0
+      Damage: 15
     - MaxTimer: 30
       TimerSinceInput: 0
       StartupFrameInfo:
         FrameDuration: 6
-        FrameAnimationAmount: 0
+        FrameAnimationAmount: 3
       ActiveFrames:
         FrameDuration: 10
-        FrameAnimationAmount: 0
+        FrameAnimationAmount: 2
       RecoveryFrames:
         FrameDuration: 10
-        FrameAnimationAmount: 0
-      Damage:
-        FrameDuration: 10
-        FrameAnimationAmount: 0
+        FrameAnimationAmount: 5
+      Damage: 10
     - MaxTimer: 30
       TimerSinceInput: 0
       StartupFrameInfo:
@@ -488,9 +493,7 @@ MonoBehaviour:
       RecoveryFrames:
         FrameDuration: -1
         FrameAnimationAmount: 0
-      Damage:
-        FrameDuration: -1
-        FrameAnimationAmount: 0
+      Damage: 0
 --- !u!114 &846610792505087088
 MonoBehaviour:
   m_ObjectHideFlags: 0

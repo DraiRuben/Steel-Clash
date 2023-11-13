@@ -8,7 +8,6 @@ public class InputBuffer : MonoBehaviour
 
     private PlayerActionExecutor m_actionExecutor;
 
-    private int m_remainingRecoveryFrames = 0;
     private void Awake()
     {
         m_actionExecutor = GetComponent<PlayerActionExecutor>();
@@ -16,15 +15,6 @@ public class InputBuffer : MonoBehaviour
 
     private void Update()
     {
-        if (!CanAct)
-        {
-            m_remainingRecoveryFrames--;
-            if (m_remainingRecoveryFrames <= 0)
-            {
-                CanAct = true;
-                m_actionExecutor.TryExecuteValidAction(ActionInputBuffer);
-            }
-        }
         m_actionExecutor.TryExecuteValidAction(ActionInputBuffer);
         ReduceActionsTimer();
     }
@@ -49,7 +39,7 @@ public class PlayerInputAction
     public AnimationFrameInfo StartupFrameInfo;
     public AnimationFrameInfo ActiveFrames;
     public AnimationFrameInfo RecoveryFrames;
-    public AnimationFrameInfo Damage;
+    public int Damage;
 }
 [Serializable]
 public enum PlayerInputActionType

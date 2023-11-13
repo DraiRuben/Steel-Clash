@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,7 +10,6 @@ public class PlayerActionExecutor : MonoBehaviour
 {
     [SerializeField] private JumpInfo m_jumpInfo;
     [SerializeField] private MovementInfo m_movementInfo; 
-    private PlayerInputActionType m_currentAction;
     private int m_currentJumpAmount = 0;
     private float m_timeSinceMovementInput = 0f;
     private float m_timeSinceLastJump = 0f;
@@ -76,12 +76,17 @@ public class PlayerActionExecutor : MonoBehaviour
                 m_player.Rb.velocity = new (
                     m_player.m_playerMovementInput.x * m_movementInfo.GroundMovementSpeed * m_movementInfo.m_movementCurve.Evaluate(m_timeSinceMovementInput),
                     m_player.Rb.velocity.y);
+
+                if (m_inputBuffer.CanAct)
+                    m_animator.SetInteger("State", 1);
             }
             else
             {
                 m_timeSinceMovementInput = 0f;
                 m_player.Rb.velocity = Mathf.Abs(m_player.Rb.velocity.x) > 0.5f? new(m_player.Rb.velocity.x * (1 - m_movementInfo.GroundDrag * Time.fixedDeltaTime), m_player.Rb.velocity.y): new(0, m_player.Rb.velocity.y);
-
+                
+                if (m_inputBuffer.CanAct)
+                    m_animator.SetInteger("State", 0);
             }
         }
     }
@@ -99,10 +104,19 @@ public class PlayerActionExecutor : MonoBehaviour
                 }
                 break;
             default:
-                m_animator.SetInteger("State", (int)actionType + 5);
-                m_currentAction = actionType;
+                m_animator.SetInteger("State", (int)actionType + 4); //0 for idle, 1 for walk, 2 for hurt, 3 for dizzy
+                m_animationManager.m_actionInfo = (actionType,actionInfo);
+                m_inputBuffer.CanAct = false;
+                StartCoroutine(ActionStun());
                 break;
         }
+    }
+    private IEnumerator ActionStun()
+    {
+
+        int animationState = m_animator.GetInteger("State");
+        yield return new WaitWhile(()=> animationState == m_animator.GetInteger("State"));
+        m_inputBuffer.CanAct = true;
     }
     private IEnumerator TryHoldJump()
     {
