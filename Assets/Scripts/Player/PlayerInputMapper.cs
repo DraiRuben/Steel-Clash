@@ -11,6 +11,7 @@ public class PlayerInputMapper : MonoBehaviour
     {
         Rb = GetComponent<Rigidbody2D>();
         m_inputBuffer = GetComponent<InputBuffer>();
+
     }
     public void Movement(InputAction.CallbackContext ctx)
     {
@@ -40,7 +41,7 @@ public class PlayerInputMapper : MonoBehaviour
     {
         if (ctx.performed)
         {
-            if (m_playerMovementInput.y > 0)
+            if (m_playerMovementInput.y > 0.6f)
             {
                 m_inputBuffer.TryDoAction(PlayerInputActionType.UpSpecialAttack);
             }
@@ -57,5 +58,6 @@ public class PlayerInputMapper : MonoBehaviour
             m_inputBuffer.TryDoAction(PlayerInputActionType.Counter);
         }
     }
+
 }
 

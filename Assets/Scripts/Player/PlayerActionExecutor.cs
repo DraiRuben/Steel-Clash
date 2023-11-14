@@ -47,7 +47,8 @@ public class PlayerActionExecutor : MonoBehaviour
     }
     private bool CanUseAction(PlayerInputActionType actionType)
     {
-        if (!m_inputBuffer.CanAct) return false;
+        PlayerInputAction action = m_inputBuffer.ActionInputBuffer[actionType];
+        if (!m_inputBuffer.CanAct || (!m_feet.IsGrounded && action.AirUses>= action.MaxAirUses)) return false;
 
         if (actionType == PlayerInputActionType.Jump)
         {
@@ -55,6 +56,7 @@ public class PlayerActionExecutor : MonoBehaviour
         }
         else
         {
+            action.AirUses++;
             return true;
         }
     }
@@ -89,7 +91,6 @@ public class PlayerActionExecutor : MonoBehaviour
             else
             {
                 m_timeSinceMovementInput = 0f;
-                //need to implement air drag
                 m_player.Rb.velocity = Mathf.Abs(m_player.Rb.velocity.x) > 0.5f?
                     new(m_player.Rb.velocity.x * (1 - (m_feet.IsGrounded?m_movementInfo.GroundDrag:m_movementInfo.AirDrag) * Time.fixedDeltaTime), m_player.Rb.velocity.y)
                     : new(0, m_player.Rb.velocity.y);
@@ -116,8 +117,8 @@ public class PlayerActionExecutor : MonoBehaviour
             default:
                 m_animator.SetInteger("State", (int)actionType + 4); //0 for idle, 1 for walk, 2 for hurt, 3 for dizzy
                 m_animationManager.m_actionInfo = (actionType,actionInfo);
-                if (actionInfo.Attack != null) actionInfo.Attack.Damage = actionInfo.Damage;
-                StartCoroutine(ActionStun());
+                if (actionInfo.Weapon != null) actionInfo.Weapon.Damage = actionInfo.Damage;
+                StartCoroutine(ActionStun(actionInfo));
                 break;
         }
     }
@@ -126,11 +127,17 @@ public class PlayerActionExecutor : MonoBehaviour
         m_animator.speed = damageReceived * 1.5f;
         StartCoroutine(ActionStun());
     }
-    private IEnumerator ActionStun()
+    private IEnumerator ActionStun(PlayerInputAction actionInfo = null)
     {
         m_inputBuffer.CanAct = false;
         int animationState = m_animator.GetInteger("State");
-        yield return new WaitWhile(()=> animationState == m_animator.GetInteger("State"));
+        if (actionInfo != null && actionInfo.VelocityChange != Vector2.zero)
+        {
+            m_player.Rb.velocity = Vector2.zero;
+            m_player.Rb.AddForce(actionInfo.VelocityChange,ForceMode2D.Impulse);
+        }
+        yield return new WaitWhile(() => animationState == m_animator.GetInteger("State"));
+        
         m_inputBuffer.CanAct = true;
     }
     private IEnumerator TryHoldJump()

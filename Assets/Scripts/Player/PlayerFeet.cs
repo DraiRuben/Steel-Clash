@@ -7,10 +7,12 @@ public class PlayerFeet : MonoBehaviour
     [HideInInspector] public bool IsGrounded;
     [HideInInspector] public BoxCollider2D Collider;
     private PlayerActionExecutor m_executor;
+    private InputBuffer m_inputBuffer;
     private void Awake()
     {
         Collider = GetComponent<BoxCollider2D>();
         m_executor = transform.root.GetComponent<PlayerActionExecutor>();
+        m_inputBuffer = transform.root.GetComponent<InputBuffer>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -18,6 +20,7 @@ public class PlayerFeet : MonoBehaviour
         {
             IsGrounded = true;
             m_executor.CurrentJumpAmount = 0;
+            m_inputBuffer.ResetAirUses();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

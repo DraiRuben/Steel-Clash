@@ -4,7 +4,7 @@ using UnityEngine;
 public class InputBuffer : MonoBehaviour
 {
     [HideInInspector] public bool CanAct = true;
-    [SerializeField] private PlayerMovesDictionary ActionInputBuffer;
+    public PlayerMovesDictionary ActionInputBuffer;
 
     private PlayerActionExecutor m_actionExecutor;
 
@@ -33,17 +33,33 @@ public class InputBuffer : MonoBehaviour
                 action.TimerSinceInput--;
         }
     }
+    public void ResetAirUses()
+    {
+        foreach(var action in ActionInputBuffer.Values)
+        {
+            action.AirUses = 0;
+        }
+    }
 }
 [Serializable]
 public class PlayerInputAction
 {
     public int MaxTimer; // this is a frame ammount, not seconds
     [HideInInspector] public int TimerSinceInput; //same thing here
+    [HideInInspector] public int AirUses;
+    public int MaxAirUses;
+
+    [Header("Frame Data")]
     public AnimationFrameInfo StartupFrameInfo;
     public AnimationFrameInfo ActiveFrames;
     public AnimationFrameInfo RecoveryFrames;
+
+    [Header("Attack")]
     public int Damage;
-    public PlayerAttack Attack;
+    public PlayerAttack Weapon;
+
+    [Header("Movement")]
+    public Vector2 VelocityChange;
 }
 [Serializable]
 public enum PlayerInputActionType
