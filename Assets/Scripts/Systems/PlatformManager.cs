@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlatformManager : MonoBehaviour
 {
-    [SerializeField] private Platform m_platform;
+    [SerializeField] private GameObject m_platform;
     //When a new player joins, add a new platform linked to that player
     private void Start()
     {
@@ -12,8 +12,8 @@ public class PlatformManager : MonoBehaviour
     }
     public void GenerateCollision(int _playerCount,PlayerFeet target)
     {
-        var Instantiated = Instantiate(m_platform.gameObject,transform);
+        var Instantiated = Instantiate(m_platform,transform);
         Instantiated.GetComponent<Platform>().Target = target;
-        m_platform.gameObject.layer = LayerMask.NameToLayer($"Player{_playerCount}Platforms");
+        Instantiated.layer = LayerMask.NameToLayer($"Player{_playerCount}Platforms");
     }
 }

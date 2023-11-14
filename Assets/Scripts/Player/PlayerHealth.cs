@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -12,22 +13,40 @@ public class PlayerHealth : MonoBehaviour
     [HideInInspector] public StatsInterfaceHandler m_display;
     [HideInInspector] public bool IsCountering = false;
     [HideInInspector] public bool IsInvulnerable = false;
+    private PlayerActionExecutor m_actionExecutor;
+    private void Awake()
+    {
+        m_actionExecutor = GetComponent<PlayerActionExecutor>();
+    }
 
-    public int Percentage { get { return m_percentage; } set { m_display.SetCurrentPourcentageTo(value); m_percentage = value; } }
+    public int Percentage { get { return m_percentage; }
+        set { m_display.SetCurrentPourcentageTo(value); m_percentage = value; } }
     public int Lives { get { return m_lives; } set { m_display.SetLifeTo(value); m_lives = value; } }
 
-    public void ApplyKnockBack(float DamageTaken,Rigidbody2D AttackingPlayer)
+    public void ApplyKnockBack(int _damageTaken,Rigidbody2D _attackingPlayer)
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.velocity = Vector3.zero;
-        float kbPower = Mathf.Log(DamageTaken) * m_percentage / 10;
-        Vector3 kbDir = AttackingPlayer.velocity.normalized;
-        if(kbDir.magnitude==0f)
-        {
-            kbDir = (transform.position- AttackingPlayer.transform.position).normalized + Vector3.up;
-        }
-        rb.AddForce(kbDir * kbPower,ForceMode2D.Impulse);
 
+        float kbPower = Mathf.Log(_damageTaken) * m_percentage / 10;
+        Vector3 kbDir = _attackingPlayer.velocity.normalized;
+
+        //if player isn't moving or if the player is getting pushed by the attacked player
+        if (kbDir.magnitude == 0f || IsInCone(45f,rb.velocity.normalized,kbDir))
+        {
+            kbDir = (transform.position- _attackingPlayer.transform.position).normalized + Vector3.up;
+            Debug.Log("adjusted");
+        }
+        rb.velocity = Vector3.zero;
+        rb.AddForce(kbDir * kbPower,ForceMode2D.Impulse);
+        m_actionExecutor.Hurt(_damageTaken);
+
+    }
+    private bool IsInCone(float _angle, Vector3 _bisector, Vector3 _toTest)
+    {
+        float dotProduct = Vector3.Dot(_bisector, _toTest);
+        float angleBetween = Mathf.Acos(dotProduct) * Mathf.Rad2Deg;
+
+        return angleBetween <= _angle;
     }
     public void SpawnInvulnerability()
     {

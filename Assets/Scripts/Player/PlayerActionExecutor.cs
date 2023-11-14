@@ -116,15 +116,19 @@ public class PlayerActionExecutor : MonoBehaviour
             default:
                 m_animator.SetInteger("State", (int)actionType + 4); //0 for idle, 1 for walk, 2 for hurt, 3 for dizzy
                 m_animationManager.m_actionInfo = (actionType,actionInfo);
-                m_inputBuffer.CanAct = false;
                 if (actionInfo.Attack != null) actionInfo.Attack.Damage = actionInfo.Damage;
                 StartCoroutine(ActionStun());
                 break;
         }
     }
+    public void Hurt(int damageReceived)
+    {
+        m_animator.speed = damageReceived * 1.5f;
+        StartCoroutine(ActionStun());
+    }
     private IEnumerator ActionStun()
     {
-
+        m_inputBuffer.CanAct = false;
         int animationState = m_animator.GetInteger("State");
         yield return new WaitWhile(()=> animationState == m_animator.GetInteger("State"));
         m_inputBuffer.CanAct = true;

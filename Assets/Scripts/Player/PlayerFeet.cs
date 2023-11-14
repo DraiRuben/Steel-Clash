@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerFeet : MonoBehaviour
 {
     [HideInInspector] public bool IsGrounded;
-    [HideInInspector] public Collider2D Collider;
+    [HideInInspector] public BoxCollider2D Collider;
     private PlayerActionExecutor m_executor;
     private void Awake()
     {
-        Collider = GetComponent<Collider2D>();
+        Collider = GetComponent<BoxCollider2D>();
         m_executor = transform.root.GetComponent<PlayerActionExecutor>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
