@@ -69,7 +69,8 @@ public class PlayerHealth : MonoBehaviour
     }
     public void SpawnInvulnerability()
     {
-        StartCoroutine(SpawnInvulnerable());
+        if(gameObject.activeSelf)
+            StartCoroutine(SpawnInvulnerable());
     }
     private IEnumerator SpawnInvulnerable()
     {

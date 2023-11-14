@@ -58,6 +58,13 @@ public class PlayerInputMapper : MonoBehaviour
             m_inputBuffer.TryDoAction(PlayerInputActionType.Counter);
         }
     }
+    public void Pause(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            PauseMenuHandler.Instance.PauseGame();
+        }
+    }
 
 }
 

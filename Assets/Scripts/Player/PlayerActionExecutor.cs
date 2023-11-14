@@ -31,7 +31,6 @@ public class PlayerActionExecutor : MonoBehaviour
     public struct JumpInfo
     {
         public float JumpStrength;
-        public int ExtraJumpsAllowed;
         public float JumpHeldGravityScale;
         public float JumpCooldown;
     }
@@ -49,16 +48,10 @@ public class PlayerActionExecutor : MonoBehaviour
     {
         PlayerInputAction action = m_inputBuffer.ActionInputBuffer[actionType];
         if (!m_inputBuffer.CanAct || (!m_feet.IsGrounded && action.AirUses>= action.MaxAirUses)) return false;
-
-        if (actionType == PlayerInputActionType.Jump)
-        {
-            return CurrentJumpAmount < m_jumpInfo.ExtraJumpsAllowed + 1;
-        }
-        else
-        {
-            action.AirUses++;
-            return true;
-        }
+        
+        action.AirUses++;
+        return true;
+        
     }
     private void FixedUpdate()
     {

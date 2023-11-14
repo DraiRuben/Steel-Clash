@@ -6,6 +6,7 @@ public class SceneChanger : MonoBehaviour
     #region Methods
     public void ChangeScene(string _sceneName)
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadSceneAsync(_sceneName);
     }
     public void Reload()

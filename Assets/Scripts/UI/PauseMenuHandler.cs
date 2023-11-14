@@ -46,7 +46,6 @@ public class PauseMenuHandler : MonoBehaviour
 
     public void GoToMainMenuScene()
     {
-        Time.timeScale = 1f;
         SceneManager.LoadSceneAsync("MainMenu");
     }
     #endregion

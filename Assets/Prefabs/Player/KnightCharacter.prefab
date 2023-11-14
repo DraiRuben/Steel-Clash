@@ -532,7 +532,7 @@ MonoBehaviour:
     - MaxTimer: 30
       TimerSinceInput: 0
       AirUses: 0
-      MaxAirUses: 0
+      MaxAirUses: 2
       StartupFrameInfo:
         FrameDuration: 30
         FrameAnimationAmount: 0

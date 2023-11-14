@@ -90,14 +90,18 @@ public class StatsInterfaceHandler : MonoBehaviour
         }
         for (int i = 0; i < _fullLifeImageArray.Count; i++)
         {
-            if (i <= number - 1)
+            if(_fullLifeImageArray[i] != null)
             {
-                _fullLifeImageArray[i].enabled = true;
+                if (i <= number - 1)
+                {
+                    _fullLifeImageArray[i].enabled = true;
+                }
+                else
+                {
+                    _fullLifeImageArray[i].enabled = false;
+                }
             }
-            else
-            {
-                _fullLifeImageArray[i].enabled = false;
-            }
+
         }
     }
     #endregion
