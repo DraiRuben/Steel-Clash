@@ -467,6 +467,8 @@ MonoBehaviour:
     m_values:
     - MaxTimer: 30
       TimerSinceInput: 0
+      AirUses: 0
+      MaxAirUses: 50
       StartupFrameInfo:
         FrameDuration: 3
         FrameAnimationAmount: 2
@@ -477,9 +479,12 @@ MonoBehaviour:
         FrameDuration: 20
         FrameAnimationAmount: 1
       Damage: 0
-      Attack: {fileID: 0}
+      Weapon: {fileID: 0}
+      VelocityChange: {x: 0, y: 0}
     - MaxTimer: 30
       TimerSinceInput: 0
+      AirUses: 0
+      MaxAirUses: 50
       StartupFrameInfo:
         FrameDuration: 7
         FrameAnimationAmount: 2
@@ -490,9 +495,12 @@ MonoBehaviour:
         FrameDuration: 6
         FrameAnimationAmount: 3
       Damage: 4
-      Attack: {fileID: 6576297431437843864}
+      Weapon: {fileID: 6576297431437843864}
+      VelocityChange: {x: 0, y: 0}
     - MaxTimer: 30
       TimerSinceInput: 0
+      AirUses: 0
+      MaxAirUses: 50
       StartupFrameInfo:
         FrameDuration: 15
         FrameAnimationAmount: 2
@@ -503,9 +511,12 @@ MonoBehaviour:
         FrameDuration: 14
         FrameAnimationAmount: 1
       Damage: 15
-      Attack: {fileID: 6576297431437843864}
+      Weapon: {fileID: 6576297431437843864}
+      VelocityChange: {x: 0, y: 0}
     - MaxTimer: 30
       TimerSinceInput: 0
+      AirUses: 0
+      MaxAirUses: 1
       StartupFrameInfo:
         FrameDuration: 6
         FrameAnimationAmount: 3
@@ -516,9 +527,12 @@ MonoBehaviour:
         FrameDuration: 10
         FrameAnimationAmount: 5
       Damage: 10
-      Attack: {fileID: 6576297431437843864}
+      Weapon: {fileID: 6576297431437843864}
+      VelocityChange: {x: 0, y: 20}
     - MaxTimer: 30
       TimerSinceInput: 0
+      AirUses: 0
+      MaxAirUses: 0
       StartupFrameInfo:
         FrameDuration: 30
         FrameAnimationAmount: 0
@@ -529,7 +543,8 @@ MonoBehaviour:
         FrameDuration: -1
         FrameAnimationAmount: 0
       Damage: 0
-      Attack: {fileID: 0}
+      Weapon: {fileID: 0}
+      VelocityChange: {x: 0, y: 0}
 --- !u!114 &846610792505087088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -732,6 +747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4abb7a32d48914a4cbcbec82d5e6a222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerName: 
   Body: {fileID: 5291326874814843091}
   m_spawnInvulnerabilityDuration: 3
   m_display: {fileID: 0}
