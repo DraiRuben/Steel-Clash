@@ -15,7 +15,12 @@ public class SpawnManager : MonoBehaviour
 
     public void PutPlayerAtSpawnPoint(int _playerID, GameObject _player)
     {
-        _player.transform.position = SpawnPoints[_playerID - 1].position;
-        _player.GetComponent<PlayerHealth>().SpawnInvulnerability();
+        var _Health = _player.GetComponent<PlayerHealth>();
+        if (_Health.Lives > 0)
+        {
+            _player.transform.position = SpawnPoints[_playerID - 1].position;
+            _player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            _Health.SpawnInvulnerability();
+        }
     }
 }

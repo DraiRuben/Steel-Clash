@@ -24,7 +24,6 @@ public class StatsInterfaceHandler : MonoBehaviour
         SetCurrentPourcentageToZero();
         SetFullLife();
     }
-    
     public void SetIDTo(int id, List<Color> colorList)
     {
         _playerCircleImage.color = colorList[id - 1];

@@ -732,11 +732,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4abb7a32d48914a4cbcbec82d5e6a222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Body: {fileID: 5291326874814843091}
+  m_spawnInvulnerabilityDuration: 3
+  m_display: {fileID: 0}
   IsCountering: 0
   IsInvulnerable: 0
-  OnDamageTaken:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!50 &1410551152038516693
 Rigidbody2D:
   serializedVersion: 4
@@ -775,7 +775,7 @@ GameObject:
   - component: {fileID: 5158442963855958452}
   - component: {fileID: 4315029125702488095}
   - component: {fileID: 5499024518856773461}
-  m_Layer: 8
+  m_Layer: 4
   m_Name: Body
   m_TagString: Player
   m_Icon: {fileID: 0}

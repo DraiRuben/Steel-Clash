@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [HideInInspector] public float Damage;
+    [HideInInspector] public int Damage;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(!collision.isTrigger && collision.CompareTag("Player"))

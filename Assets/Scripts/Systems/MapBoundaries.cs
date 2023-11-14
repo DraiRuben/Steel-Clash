@@ -8,7 +8,10 @@ public class MapBoundaries : MonoBehaviour
     {
         if(!collision.isTrigger && collision.CompareTag("Player"))
         {
-
+            var health = collision.transform.root.GetComponent<PlayerHealth>();
+            health.Percentage = 0;
+            health.Lives--;
+            SpawnManager.instance.PutPlayerAtSpawnPoint(5, collision.transform.root.gameObject);
         }
     }
 }

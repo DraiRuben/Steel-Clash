@@ -5,11 +5,10 @@ public class PlayerManager : MonoBehaviour
 {
     #region Variables
     List<Color> _colorList;
-
-    [HideInInspector] public List<PlatformManager> Platforms = new();
     public static PlayerManager instance;
     private PlayerInputManager inputManager;
 
+    [HideInInspector] public List<PlatformManager> Platforms = new();
     [SerializeField] GameObject _statsInterfacePrefab;
     [SerializeField] GameObject _statsInterfacesParent;
     #endregion
@@ -32,54 +31,18 @@ public class PlayerManager : MonoBehaviour
         };
     }
 
-    private void Start()
-    {
-        // POUR TEST :
-
-        GameObject _statsInterface = Instantiate(_statsInterfacePrefab, _statsInterfacesParent.transform);
-
-        StatsInterfaceHandler _statsInterfaceHandler = _statsInterface.GetComponent<StatsInterfaceHandler>();
-
-        _statsInterfaceHandler.SetIDTo(1, _colorList);
-        _statsInterfaceHandler.SetCurrentPourcentageTo(266);
-
-        _statsInterface = Instantiate(_statsInterfacePrefab, _statsInterfacesParent.transform);
-
-        _statsInterfaceHandler = _statsInterface.GetComponent<StatsInterfaceHandler>();
-
-        _statsInterfaceHandler.SetIDTo(2, _colorList);
-        _statsInterfaceHandler.SetCurrentPourcentageTo(0);
-        _statsInterfaceHandler.SetLifeTo(0);
-
-        _statsInterface = Instantiate(_statsInterfacePrefab, _statsInterfacesParent.transform);
-
-        _statsInterfaceHandler = _statsInterface.GetComponent<StatsInterfaceHandler>();
-
-        _statsInterfaceHandler.SetIDTo(3, _colorList);
-        _statsInterfaceHandler.SetCurrentPourcentageTo(54);
-        _statsInterfaceHandler.SetLifeTo(1);
-
-        _statsInterface = Instantiate(_statsInterfacePrefab, _statsInterfacesParent.transform);
-
-        _statsInterfaceHandler = _statsInterface.GetComponent<StatsInterfaceHandler>();
-
-        _statsInterfaceHandler.SetIDTo(4, _colorList);
-        _statsInterfaceHandler.SetCurrentPourcentageTo(126);
-        _statsInterfaceHandler.SetLifeTo(2);
-    }
-
     public void OnPlayerJoined(PlayerInput input)
     {
-        // TO DO : Replace NewNumberOfPlayer by the current number of player connected
-        int NewNumberOfPlayer = 0;
-
         GameObject _statsInterface = Instantiate(_statsInterfacePrefab, _statsInterfacesParent.transform);
 
         StatsInterfaceHandler _statsInterfaceHandler = _statsInterface.GetComponent<StatsInterfaceHandler>();
 
-        _statsInterfaceHandler.SetIDTo(NewNumberOfPlayer, _colorList);
-        _statsInterfaceHandler.SetCurrentPourcentageTo(0); 
+        _statsInterfaceHandler.SetIDTo(inputManager.playerCount, _colorList);
+        _statsInterfaceHandler.SetCurrentPourcentageTo(0);
         
+        var Health = input.GetComponent<PlayerHealth>();
+        Health.m_display = _statsInterfaceHandler;
+        Health.Body.layer = LayerMask.NameToLayer($"Player{inputManager.playerCount}");
         foreach (var p in Platforms)
         {
             p.GenerateCollision(inputManager.playerCount, input.GetComponent<PlayerActionExecutor>().m_feet);

@@ -18,11 +18,10 @@ public class PlayerActionExecutor : MonoBehaviour
     private PlayerAnimationManager m_animationManager;
     private PlayerInputMapper m_player;
     private InputBuffer m_inputBuffer;
-    private SpriteRenderer[] m_spriteRenderers;
+
     private Animator m_animator;
     private void Awake()
     {
-        m_spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         m_animator = GetComponent<Animator>();
         m_inputBuffer = GetComponent<InputBuffer>();
         m_player = GetComponent<PlayerInputMapper>();
