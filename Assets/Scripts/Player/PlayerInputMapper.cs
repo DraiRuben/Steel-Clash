@@ -40,7 +40,7 @@ public class PlayerInputMapper : MonoBehaviour
     {
         if (ctx.performed)
         {
-            if (m_playerMovementInput.y > 0)
+            if (m_playerMovementInput.y > 0.6f)
             {
                 m_inputBuffer.TryDoAction(PlayerInputActionType.UpSpecialAttack);
             }
