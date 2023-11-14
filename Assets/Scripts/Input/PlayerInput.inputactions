@@ -62,7 +62,7 @@
             ],
             "bindings": [
                 {
-                    "name": "WASD",
+                    "name": "WASD/ZQSD",
                     "id": "142dd784-e9fc-4c96-88cf-ca66a3f4650b",
                     "path": "2DVector",
                     "interactions": "",
@@ -75,7 +75,7 @@
                 {
                     "name": "up",
                     "id": "d060cc92-c942-43d7-b0d7-23e9278f3931",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -97,7 +97,7 @@
                 {
                     "name": "left",
                     "id": "d6aad635-6dbe-40d6-8481-ba6207850a73",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
