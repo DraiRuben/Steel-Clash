@@ -14,7 +14,7 @@ public class PlayerActionExecutor : MonoBehaviour
     [HideInInspector] public int CurrentJumpAmount = 0;
     private float m_timeSinceMovementInput = 0f;
     private float m_timeSinceLastJump = 0f;
-
+    [HideInInspector] public bool DontOverrideVelX = false;
     private PlayerAnimationManager m_animationManager;
     private PlayerInputMapper m_player;
     private InputBuffer m_inputBuffer;
@@ -47,25 +47,25 @@ public class PlayerActionExecutor : MonoBehaviour
     private bool CanUseAction(PlayerInputActionType actionType)
     {
         PlayerInputAction action = m_inputBuffer.ActionInputBuffer[actionType];
-        if (!m_inputBuffer.CanAct || (!m_feet.IsGrounded && action.AirUses>= action.MaxAirUses)) return false;
-        
+        if (!m_inputBuffer.CanAct || (!m_feet.IsGrounded && action.AirUses >= action.MaxAirUses)) return false;
+
         action.AirUses++;
         return true;
-        
+
     }
     private void FixedUpdate()
     {
         if (Time.timeScale != 0)
         {
             m_timeSinceLastJump += Time.fixedDeltaTime;
-            if (m_player.m_playerMovementInput.x != 0f && m_inputBuffer.CanAct)
+            if (m_player.m_playerMovementInput.x != 0f)
             {
                 transform.rotation = Quaternion.Euler(0, m_player.m_playerMovementInput.x < 0 ? 180 : 0, 0);
 
                 //if we suddenly change directions, don't keep the current curve's value, reset it as if we stopped moving
                 //so that the player doesn't have sudden changes in movement and teleports around
-                if(m_player.m_playerMovementInput.x>0 && m_player.Rb.velocity.x<0
-                    || m_player.m_playerMovementInput.x<0 && m_player.Rb.velocity.x > 0)
+                if (m_player.m_playerMovementInput.x > 0 && m_player.Rb.velocity.x < 0
+                    || m_player.m_playerMovementInput.x < 0 && m_player.Rb.velocity.x > 0)
                 {
                     m_timeSinceMovementInput = 0f;
                     m_player.Rb.velocity = new(0, m_player.Rb.velocity.y);
@@ -74,8 +74,9 @@ public class PlayerActionExecutor : MonoBehaviour
                 {
                     m_timeSinceMovementInput += Time.fixedDeltaTime / m_movementInfo.TimeToReachMaxSpeed;
                 }
-                m_player.Rb.velocity = new (
-                    m_player.m_playerMovementInput.x * (m_feet.IsGrounded?m_movementInfo.GroundMovementSpeed:m_movementInfo.AirMovementSpeed) * m_movementInfo.m_movementCurve.Evaluate(m_timeSinceMovementInput),
+                m_player.Rb.velocity = new(
+                    DontOverrideVelX ? m_player.Rb.velocity.x :
+                        m_player.m_playerMovementInput.x * (m_feet.IsGrounded ? m_movementInfo.GroundMovementSpeed : m_movementInfo.AirMovementSpeed) * m_movementInfo.m_movementCurve.Evaluate(m_timeSinceMovementInput),
                     m_player.Rb.velocity.y);
 
                 if (m_inputBuffer.CanAct)
@@ -84,10 +85,10 @@ public class PlayerActionExecutor : MonoBehaviour
             else
             {
                 m_timeSinceMovementInput = 0f;
-                m_player.Rb.velocity = Mathf.Abs(m_player.Rb.velocity.x) > 0.5f?
-                    new(m_player.Rb.velocity.x * (1 - (m_feet.IsGrounded?m_movementInfo.GroundDrag:m_movementInfo.AirDrag) * Time.fixedDeltaTime), m_player.Rb.velocity.y)
+                m_player.Rb.velocity = Mathf.Abs(m_player.Rb.velocity.x) > 0.5f ?
+                    new(m_player.Rb.velocity.x * (1 - (m_feet.IsGrounded ? m_movementInfo.GroundDrag : m_movementInfo.AirDrag) * Time.fixedDeltaTime), m_player.Rb.velocity.y)
                     : new(0, m_player.Rb.velocity.y);
-                
+
                 if (m_inputBuffer.CanAct)
                     m_animator.SetInteger("State", 0);
             }
@@ -98,7 +99,7 @@ public class PlayerActionExecutor : MonoBehaviour
         switch (actionType)
         {
             case PlayerInputActionType.Jump:
-                if(m_timeSinceLastJump>= m_jumpInfo.JumpCooldown)
+                if (m_timeSinceLastJump >= m_jumpInfo.JumpCooldown)
                 {
                     m_animator.SetInteger("State", (int)actionType + 4);
                     m_player.Rb.velocity = new(m_player.Rb.velocity.x, 0); //resets y so that the impulse is the same when falling and on ground
@@ -109,7 +110,7 @@ public class PlayerActionExecutor : MonoBehaviour
                 break;
             default:
                 m_animator.SetInteger("State", (int)actionType + 4); //0 for idle, 1 for walk, 2 for hurt, 3 for dizzy
-                m_animationManager.m_actionInfo = (actionType,actionInfo);
+                m_animationManager.m_actionInfo = (actionType, actionInfo);
                 if (actionInfo.Weapon != null) actionInfo.Weapon.Damage = actionInfo.Damage;
                 StartCoroutine(ActionStun(actionInfo));
                 break;
@@ -127,10 +128,11 @@ public class PlayerActionExecutor : MonoBehaviour
         if (actionInfo != null && actionInfo.VelocityChange != Vector2.zero)
         {
             m_player.Rb.velocity = Vector2.zero;
-            m_player.Rb.AddForce(actionInfo.VelocityChange,ForceMode2D.Impulse);
+            m_player.Rb.AddForce(actionInfo.VelocityChange, ForceMode2D.Impulse);
+            DontOverrideVelX = actionInfo.VelocityChange.x != 0;
         }
         yield return new WaitWhile(() => animationState == m_animator.GetInteger("State"));
-        
+
         m_inputBuffer.CanAct = true;
     }
     private IEnumerator TryHoldJump()
