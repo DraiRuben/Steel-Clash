@@ -15,8 +15,11 @@ public class InputBuffer : MonoBehaviour
 
     private void Update()
     {
-        m_actionExecutor.TryExecuteValidAction(ActionInputBuffer);
-        ReduceActionsTimer();
+        if(Time.timeScale != 0)
+        {
+            m_actionExecutor.TryExecuteValidAction(ActionInputBuffer);
+            ReduceActionsTimer();
+        }
     }
     public void TryDoAction(PlayerInputActionType action) //called when the player inputs an action
     {
