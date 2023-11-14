@@ -4496,6 +4496,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 2107781906020823667, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
+      propertyPath: m_Lens.OrthographicSize
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4940590614141281813, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4535,6 +4539,10 @@ PrefabInstance:
     - target: {fileID: 4940590614141281813, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7612656692450016954, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
+      propertyPath: orthographic size
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4614,17 +4622,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIs
       objectReference: {fileID: 0}
+    - target: {fileID: 3168775279724784601, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
+      propertyPath: m_fontSize
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 3168775279724784601, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 4136212688072664069, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.7684886
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4136212688072664069, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3660018
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4136212688072664069, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.45014864
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4136212688072664069, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4653,6 +4669,18 @@ PrefabInstance:
     - target: {fileID: 4136212688072664069, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4458729122529751189, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
+      propertyPath: m_text
+      value: Main Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 4458729122529751189, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
+      propertyPath: m_fontSize
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 4458729122529751189, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 7741842020356256858, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
       propertyPath: m_Camera
