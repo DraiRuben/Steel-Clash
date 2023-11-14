@@ -32,8 +32,7 @@ public class PlayerAnimationManager : MonoBehaviour
     {
         m_animator.SetInteger("State", 0);
         ResetAnim();
-    }
-    public void ResetAnim()
+    }    public void ResetAnim()
     {
         m_animator.speed = 1f;
         ReduceRecovery = false;

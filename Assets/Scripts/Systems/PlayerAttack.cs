@@ -20,6 +20,7 @@ public class PlayerAttack : MonoBehaviour
                 else
                 {
                     HealthModule.Percentage += Damage;
+                    HealthModule.ApplyKnockBack(Damage, transform.root.GetComponent<PlayerInputMapper>().Rb);
                     collision.transform.root.GetComponent<PlayerAnimationManager>().ReduceRecovery = true;
                 }
             }

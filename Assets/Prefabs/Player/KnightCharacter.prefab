@@ -388,6 +388,7 @@ GameObject:
   - component: {fileID: 846610792505087088}
   - component: {fileID: 5406983772072192466}
   - component: {fileID: 1567347488499836000}
+  - component: {fileID: 7903003545053279226}
   - component: {fileID: 1410551152038516693}
   m_Layer: 0
   m_Name: KnightCharacter
@@ -577,6 +578,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   m_feet: {fileID: 8698713282178430685}
+  CurrentJumpAmount: 0
 --- !u!114 &5406983772072192466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -713,11 +715,28 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 97daad8e-36d7-4a5e-9fb6-34334c5108d0
     m_ActionName: Game/Pause[/Keyboard/escape]
-  m_NeverAutoSwitchControlSchemes: 1
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Game
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &7903003545053279226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974429354845731865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4abb7a32d48914a4cbcbec82d5e6a222, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsCountering: 0
+  IsInvulnerable: 0
+  OnDamageTaken:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!50 &1410551152038516693
 Rigidbody2D:
   serializedVersion: 4

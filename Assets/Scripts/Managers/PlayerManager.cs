@@ -21,6 +21,7 @@ public class PlayerManager : MonoBehaviour
         {
             p.GenerateCollision(inputManager.playerCount,input.GetComponent<PlayerActionExecutor>().m_feet);
         }
+        SpawnManager.instance.PutPlayerAtSpawnPoint(inputManager.playerCount, input.gameObject);
     }
     public void OnPlayerLeft(PlayerInput input)
     {
