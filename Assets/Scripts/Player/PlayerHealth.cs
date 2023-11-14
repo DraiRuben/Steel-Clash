@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
 {
     private int m_percentage = 0;
     private int m_lives=3;
+    public string PlayerName;
     public GameObject Body;
     [SerializeField] private float m_spawnInvulnerabilityDuration = 3f;
     [HideInInspector] public StatsInterfaceHandler m_display;
@@ -21,7 +22,25 @@ public class PlayerHealth : MonoBehaviour
 
     public int Percentage { get { return m_percentage; }
         set { m_display.SetCurrentPourcentageTo(value); m_percentage = value; } }
-    public int Lives { get { return m_lives; } set { m_display.SetLifeTo(value); m_lives = value; } }
+    public int Lives { get { return m_lives; } 
+        set 
+        { 
+            m_display.SetLifeTo(value); 
+            m_lives = value; 
+            if (m_lives <= 0) 
+            {
+                PlayerManager.instance.AlivePlayers.Remove(this);
+                if (PlayerManager.instance.AlivePlayers.Count == 1)
+                {
+                    LevelEnd.instance.DisplayWinMessage(PlayerManager.instance.AlivePlayers[0].PlayerName);
+                    foreach(var player in PlayerManager.instance.Players)
+                    {
+                        player.SetActive(false);
+                    }
+                }
+            } 
+        } 
+    }
 
     public void ApplyKnockBack(int _damageTaken,Rigidbody2D _attackingPlayer)
     {

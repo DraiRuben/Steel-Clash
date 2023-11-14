@@ -7,7 +7,8 @@ public class PlayerManager : MonoBehaviour
     List<Color> _colorList;
     public static PlayerManager instance;
     private PlayerInputManager inputManager;
-
+    [HideInInspector] public List<GameObject> Players;
+    [HideInInspector] public List<PlayerHealth> AlivePlayers = new();
     [HideInInspector] public List<PlatformManager> Platforms = new();
     [SerializeField] GameObject _statsInterfacePrefab;
     [SerializeField] GameObject _statsInterfacesParent;
@@ -36,13 +37,15 @@ public class PlayerManager : MonoBehaviour
         GameObject _statsInterface = Instantiate(_statsInterfacePrefab, _statsInterfacesParent.transform);
 
         StatsInterfaceHandler _statsInterfaceHandler = _statsInterface.GetComponent<StatsInterfaceHandler>();
-
+        Players.Add(input.gameObject);
         _statsInterfaceHandler.SetIDTo(inputManager.playerCount, _colorList);
         _statsInterfaceHandler.SetCurrentPourcentageTo(0);
         
         var Health = input.GetComponent<PlayerHealth>();
         Health.m_display = _statsInterfaceHandler;
         Health.Body.layer = LayerMask.NameToLayer($"Player{inputManager.playerCount}");
+        Health.PlayerName = "Player "+inputManager.playerCount;
+        AlivePlayers.Add(Health);
         foreach (var p in Platforms)
         {
             p.GenerateCollision(inputManager.playerCount, input.GetComponent<PlayerActionExecutor>().m_feet);

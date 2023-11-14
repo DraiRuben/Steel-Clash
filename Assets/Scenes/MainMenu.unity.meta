@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Scenes/MainMenu.unity.meta
-guid: 37dcbaefa2fef5c46afaaf63b0246b13
-DefaultImporter:
-========
 guid: 5c8c98467c6528f48a1efcfa7cdc4249
-PrefabImporter:
->>>>>>>> e5953c1 (Platform and attack fix, Win menu):Assets/Prefabs/Managers/SpawnManager.prefab.meta
+DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
