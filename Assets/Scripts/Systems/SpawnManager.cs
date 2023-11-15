@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,13 +8,13 @@ public class SpawnManager : MonoBehaviour
     public static SpawnManager instance;
     private void Awake()
     {
-        if(instance == null) instance = this;
+        if (instance == null) instance = this;
         else Destroy(instance);
     }
 
     public void PutPlayerAtSpawnPoint(int _playerID, GameObject _player)
     {
-        var _Health = _player.GetComponent<PlayerHealth>();
+        PlayerHealth _Health = _player.GetComponent<PlayerHealth>();
         if (_Health.Lives > 0)
         {
             _player.transform.position = SpawnPoints[_playerID - 1].position;

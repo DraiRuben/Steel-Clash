@@ -1,11 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerInputMapper : MonoBehaviour
 {
-    [HideInInspector] public Rigidbody2D Rb;
-    [HideInInspector] public Vector2 m_playerMovementInput;
-    [HideInInspector] public bool IsHoldingJump = false;
-    [HideInInspector] public bool IsLookingRight = true;
+    [NonSerialized] public Rigidbody2D Rb;
+    [NonSerialized] public Vector2 m_playerMovementInput;
+    [NonSerialized] public bool IsHoldingJump = false;
+    [NonSerialized] public bool IsLookingRight = true;
 
     private InputBuffer m_inputBuffer;
     private void Awake()

@@ -1,35 +1,34 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class PlayerActionExecutor : MonoBehaviour
 {
     [SerializeField] private JumpInfo m_jumpInfo;
     [SerializeField] private MovementInfo m_movementInfo;
     public PlayerFeet m_feet;
-    [HideInInspector] public int CurrentJumpAmount = 0;
+
     private float m_timeSinceMovementInput = 0f;
     private float m_timeSinceLastJump = 0f;
-    [HideInInspector] public bool DontOverrideVelX = false;
-    [HideInInspector] public bool HasBeenHit = false;
-    [HideInInspector] public float HitDirX = -1;
+
+    [NonSerialized] public int CurrentJumpAmount = 0;
+    [NonSerialized] public bool DontOverrideVelX = false;
+    [NonSerialized] public bool HasBeenHit = false;
+    [NonSerialized] public float HitDirX = -1;
+
     private PlayerAnimationManager m_animationManager;
     private PlayerInputMapper m_player;
-    private InputBuffer m_inputBuffer;
     private PlayerInputAction m_currentAction;
+    private InputBuffer m_inputBuffer;
     private Animator m_animator;
-    private PlayerHealth m_playerHealth;
     private void Awake()
     {
         m_animator = GetComponent<Animator>();
         m_inputBuffer = GetComponent<InputBuffer>();
         m_player = GetComponent<PlayerInputMapper>();
         m_animationManager = GetComponent<PlayerAnimationManager>();
-        m_playerHealth = GetComponent<PlayerHealth>();
     }
     [Serializable]
     public struct JumpInfo
@@ -47,6 +46,7 @@ public class PlayerActionExecutor : MonoBehaviour
         public float GroundDrag;
         public float AirDrag;
         public float AttackGroundDrag;
+        public float FastFallGravityScale;
         public AnimationCurve MovementEvolution;
     }
     private bool CanUseAction(PlayerInputActionType actionType)
@@ -56,23 +56,28 @@ public class PlayerActionExecutor : MonoBehaviour
 
         action.AirUses++;
         return true;
-
     }
     private void FixedUpdate()
     {
         if (Time.timeScale != 0)
         {
             m_timeSinceLastJump += Time.fixedDeltaTime;
-            if (m_player.m_playerMovementInput.x != 0f
-                && !(m_feet.IsGrounded && !m_inputBuffer.CanAct) )
+            //fast fall
+            if (m_player.Rb.gravityScale != m_jumpInfo.JumpHeldGravityScale && m_inputBuffer.CanAct)
             {
-                if(m_currentAction ==null || m_currentAction.DirectionChangesUsed < m_currentAction.AllowedDirectionChanges)
+                m_player.Rb.gravityScale = m_player.m_playerMovementInput.y < 0 ? m_movementInfo.FastFallGravityScale : 1;
+            }
+            if (m_player.m_playerMovementInput.x != 0f
+                && !(m_feet.IsGrounded && !m_inputBuffer.CanAct))
+            {
+
+                if (m_currentAction == null || m_currentAction.DirectionChangesUsed < m_currentAction.AllowedDirectionChanges)
                 {
                     float newRot = m_player.m_playerMovementInput.x < 0 ? 180 : 0;
-                    if (newRot != transform.rotation.eulerAngles.y) 
+                    if (newRot != transform.rotation.eulerAngles.y)
                     {
                         m_player.IsLookingRight = newRot == 0f;
-                        if(m_currentAction != null)
+                        if (m_currentAction != null)
                             m_currentAction.DirectionChangesUsed++;
                         transform.rotation = Quaternion.Euler(0, newRot, 0);
                     }
@@ -88,7 +93,7 @@ public class PlayerActionExecutor : MonoBehaviour
                 {
                     m_timeSinceMovementInput = 0f;
                     if (m_feet.IsGrounded || (!m_feet.IsGrounded && !HasBeenHit))
-                        m_player.Rb.velocity = new(m_player.Rb.velocity.x*0.85f, m_player.Rb.velocity.y);
+                        m_player.Rb.velocity = new(m_player.Rb.velocity.x * 0.85f, m_player.Rb.velocity.y);
 
                 }
                 else
@@ -97,12 +102,12 @@ public class PlayerActionExecutor : MonoBehaviour
                 }
                 float MovementSpeed = (m_feet.IsGrounded ? m_movementInfo.GroundMovementSpeed : m_movementInfo.AirMovementSpeed);
                 float AddVelX = DontOverrideVelX ? m_player.Rb.velocity.x :
-                        m_player.m_playerMovementInput.x * MovementSpeed *(1/m_movementInfo.MovementEvolution.Evaluate(m_timeSinceMovementInput));
-                if (Mathf.Abs(m_player.Rb.velocity.x+AddVelX) > MovementSpeed)
+                        m_player.m_playerMovementInput.x * MovementSpeed * (1 / m_movementInfo.MovementEvolution.Evaluate(m_timeSinceMovementInput));
+                if (Mathf.Abs(m_player.Rb.velocity.x + AddVelX) > MovementSpeed)
                 {
                     AddVelX = (MovementSpeed - Mathf.Abs(m_player.Rb.velocity.x)) * Mathf.Sign(m_player.m_playerMovementInput.x);
                 }
-                m_player.Rb.AddForce(new Vector2(AddVelX,0), ForceMode2D.Force);
+                m_player.Rb.AddForce(new Vector2(AddVelX, 0), ForceMode2D.Force);
 
                 if (m_inputBuffer.CanAct)
                     m_animator.SetInteger("State", 1);
@@ -111,7 +116,7 @@ public class PlayerActionExecutor : MonoBehaviour
             {
                 m_timeSinceMovementInput = 0f;
                 m_player.Rb.velocity = Mathf.Abs(m_player.Rb.velocity.x) > 0.5f ?
-                    new(m_player.Rb.velocity.x * (1 - (m_feet.IsGrounded ?m_inputBuffer.CanAct? m_movementInfo.GroundDrag:m_movementInfo.AttackGroundDrag : m_movementInfo.AirDrag) * Time.fixedDeltaTime), m_player.Rb.velocity.y)
+                    new(m_player.Rb.velocity.x * (1 - (m_feet.IsGrounded ? m_inputBuffer.CanAct ? m_movementInfo.GroundDrag : m_movementInfo.AttackGroundDrag : m_movementInfo.AirDrag) * Time.fixedDeltaTime), m_player.Rb.velocity.y)
                     : new(0, m_player.Rb.velocity.y);
 
                 if (m_inputBuffer.CanAct)
@@ -139,11 +144,10 @@ public class PlayerActionExecutor : MonoBehaviour
                 m_animationManager.m_actionInfo = (actionType, actionInfo);
                 m_currentAction = actionInfo;
                 actionInfo.DirectionChangesUsed = 0;
-                if (actionInfo.Weapon != null) 
-                { 
-                    actionInfo.Weapon.Damage = actionInfo.Damage; 
+                if (actionInfo.Weapon != null)
+                {
+                    actionInfo.Weapon.Damage = actionInfo.Damage;
                     actionInfo.Weapon.IsCounter = actionType == PlayerInputActionType.Counter;
-                    m_playerHealth.IsCountering = actionInfo.Weapon.IsCounter;
                 }
                 StartCoroutine(ActionStun(actionInfo));
                 break;
@@ -151,8 +155,7 @@ public class PlayerActionExecutor : MonoBehaviour
     }
     public void Hurt(int damageReceived)
     {
-        m_animator.speed = 4f /damageReceived;
-        m_playerHealth.IsCountering = false;
+        m_animator.speed = 4f / damageReceived;
         StartCoroutine(ActionStun());
     }
     public void CounterStun()
@@ -173,7 +176,6 @@ public class PlayerActionExecutor : MonoBehaviour
         yield return new WaitWhile(() => animationState == m_animator.GetInteger("State"));
         m_currentAction = null;
         m_inputBuffer.CanAct = true;
-        m_playerHealth.IsCountering = false;
     }
     private IEnumerator TryHoldJump()
     {

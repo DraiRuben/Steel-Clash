@@ -1,30 +1,36 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimationManager : MonoBehaviour
 {
+    [NonSerialized] public bool ReduceRecovery;
     private AnimationState m_currentAnimationState;
     public (PlayerInputActionType type, PlayerInputAction action) m_actionInfo;
     private Animator m_animator;
-    [HideInInspector] public bool ReduceRecovery;
+    private PlayerHealth m_playerHealth;
+
     private void Awake()
     {
+        m_playerHealth = GetComponent<PlayerHealth>();
         m_animator = GetComponent<Animator>();
     }
-    public void UpdateAnimatorSpeed(int isNewAnimation = 0) 
+    public void UpdateAnimatorSpeed(int isNewAnimation = 0)
     {
-        m_currentAnimationState = isNewAnimation == 1? AnimationState.StartupFrames: m_currentAnimationState.Next();
+        m_playerHealth.IsCountering = false;
+        m_currentAnimationState = isNewAnimation == 1 ? AnimationState.StartupFrames : m_currentAnimationState.Next();
         AnimationFrameInfo animationFrameInfo =
             m_currentAnimationState == AnimationState.StartupFrames ? m_actionInfo.action.StartupFrameInfo :
             m_currentAnimationState == AnimationState.ActiveFrames ? m_actionInfo.action.ActiveFrames :
             m_actionInfo.action.RecoveryFrames;
-        float targetSpeed = (float)animationFrameInfo.FrameAnimationAmount/ ((float)animationFrameInfo.FrameDuration/5);
+        float targetSpeed = (float)animationFrameInfo.FrameAnimationAmount / ((float)animationFrameInfo.FrameDuration / 5);
         //for when an attack hit
-        if(m_currentAnimationState == AnimationState.RecoveryFrames && ReduceRecovery)
+        if (m_currentAnimationState == AnimationState.RecoveryFrames && ReduceRecovery)
         {
             targetSpeed *= 2;
+        }
+        if (m_actionInfo.type == PlayerInputActionType.Counter)
+        {
+            m_playerHealth.IsCountering = m_currentAnimationState == AnimationState.ActiveFrames;
         }
         m_animator.speed = targetSpeed;
     }
@@ -32,7 +38,8 @@ public class PlayerAnimationManager : MonoBehaviour
     {
         m_animator.SetInteger("State", 0);
         ResetAnim();
-    }    public void ResetAnim()
+    }
+    public void ResetAnim()
     {
         m_animator.speed = 1f;
         ReduceRecovery = false;

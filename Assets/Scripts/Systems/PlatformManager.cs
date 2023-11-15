@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlatformManager : MonoBehaviour
@@ -10,9 +8,9 @@ public class PlatformManager : MonoBehaviour
     {
         PlayerManager.instance.Platforms.Add(this);
     }
-    public void GenerateCollision(int _playerCount,PlayerFeet target)
+    public void GenerateCollision(int _playerCount, PlayerFeet target)
     {
-        var Instantiated = Instantiate(m_platform,transform);
+        GameObject Instantiated = Instantiate(m_platform, transform);
         Instantiated.GetComponent<Platform>().Target = target;
         Instantiated.layer = LayerMask.NameToLayer($"Player{_playerCount}Platforms");
     }

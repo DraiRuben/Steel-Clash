@@ -62,7 +62,7 @@
             ],
             "bindings": [
                 {
-                    "name": "WASD/ZQSD",
+                    "name": "WASD/ZQSD in QWERTY",
                     "id": "142dd784-e9fc-4c96-88cf-ca66a3f4650b",
                     "path": "2DVector",
                     "interactions": "",
@@ -76,6 +76,17 @@
                     "name": "up",
                     "id": "d060cc92-c942-43d7-b0d7-23e9278f3931",
                     "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "up",
+                    "id": "dac06fbe-ed4f-4a7b-8cb8-e1ef2b1eca67",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -98,6 +109,17 @@
                     "name": "left",
                     "id": "d6aad635-6dbe-40d6-8481-ba6207850a73",
                     "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "92c24d5d-509f-4437-85df-e15accc438b0",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",

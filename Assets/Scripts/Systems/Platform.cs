@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Platform : MonoBehaviour
@@ -12,7 +10,7 @@ public class Platform : MonoBehaviour
     }
     void Update()
     {
-        if(m_collider.bounds.max.y < Target.Collider.bounds.max.y)
+        if (m_collider.bounds.max.y < Target.Collider.bounds.max.y)
         {
             m_collider.isTrigger = false;
         }

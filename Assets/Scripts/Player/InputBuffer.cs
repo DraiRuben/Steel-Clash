@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class InputBuffer : MonoBehaviour
 {
-    [HideInInspector] public bool CanAct = true;
+    [NonSerialized] public bool CanAct = true;
     public PlayerMovesDictionary ActionInputBuffer;
 
     private PlayerActionExecutor m_actionExecutor;
@@ -15,7 +15,7 @@ public class InputBuffer : MonoBehaviour
 
     private void Update()
     {
-        if(Time.timeScale != 0)
+        if (Time.timeScale != 0)
         {
             m_actionExecutor.TryExecuteValidAction(ActionInputBuffer);
             ReduceActionsTimer();
@@ -35,7 +35,7 @@ public class InputBuffer : MonoBehaviour
     }
     public void ResetAirUses()
     {
-        foreach(var action in ActionInputBuffer.Values)
+        foreach (PlayerInputAction action in ActionInputBuffer.Values)
         {
             action.AirUses = 0;
         }
@@ -46,9 +46,9 @@ public class PlayerInputAction
 {
     public int AllowedDirectionChanges;
     public int MaxTimer; // this is a frame ammount, not seconds
-    [HideInInspector] public int TimerSinceInput; //same thing here
-    [HideInInspector] public int AirUses;
-    [HideInInspector] public int DirectionChangesUsed;
+    [NonSerialized] public int TimerSinceInput; //same thing here
+    [NonSerialized] public int AirUses;
+    [NonSerialized] public int DirectionChangesUsed;
     public int MaxAirUses;
 
     [Header("Frame Data")]
@@ -63,7 +63,7 @@ public class PlayerInputAction
     [Header("Movement")]
     public Vector2 VelocityChange;
 
-    
+
 }
 [Serializable]
 public enum PlayerInputActionType

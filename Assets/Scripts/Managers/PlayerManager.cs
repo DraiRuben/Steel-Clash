@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,9 +8,9 @@ public class PlayerManager : MonoBehaviour
     List<Color> _colorList;
     public static PlayerManager instance;
     private PlayerInputManager inputManager;
-    [HideInInspector] public List<GameObject> Players;
-    [HideInInspector] public List<PlayerHealth> AlivePlayers = new();
-    [HideInInspector] public List<PlatformManager> Platforms = new();
+    [NonSerialized] public List<GameObject> Players = new();
+    [NonSerialized] public List<PlayerHealth> AlivePlayers = new();
+    [NonSerialized] public List<PlatformManager> Platforms = new();
     [SerializeField] GameObject _statsInterfacePrefab;
     [SerializeField] GameObject _statsInterfacesParent;
     #endregion
@@ -40,13 +41,13 @@ public class PlayerManager : MonoBehaviour
         Players.Add(input.gameObject);
         _statsInterfaceHandler.SetIDTo(inputManager.playerCount, _colorList);
         _statsInterfaceHandler.SetCurrentPourcentageTo(0);
-        
-        var Health = input.GetComponent<PlayerHealth>();
+
+        PlayerHealth Health = input.GetComponent<PlayerHealth>();
         Health.m_display = _statsInterfaceHandler;
         Health.Body.layer = LayerMask.NameToLayer($"Player{inputManager.playerCount}");
-        Health.PlayerName = "Player "+inputManager.playerCount;
+        Health.PlayerName = "Player " + inputManager.playerCount;
         AlivePlayers.Add(Health);
-        foreach (var p in Platforms)
+        foreach (PlatformManager p in Platforms)
         {
             p.GenerateCollision(inputManager.playerCount, input.GetComponent<PlayerActionExecutor>().m_feet);
         }

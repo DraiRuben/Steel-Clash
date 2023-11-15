@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class PlayerFeet : MonoBehaviour
 {
-    [HideInInspector] public bool IsGrounded;
-    [HideInInspector] public BoxCollider2D Collider;
+    [NonSerialized] public bool IsGrounded = true;
+    [NonSerialized] public BoxCollider2D Collider;
     private PlayerActionExecutor m_executor;
     private InputBuffer m_inputBuffer;
     private void Awake()
