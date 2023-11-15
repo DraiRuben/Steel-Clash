@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class LevelEnd : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI m_winMessage;
+    [SerializeField] private TextMeshProUGUI m_winMessageOutline;
     [SerializeField] private Button m_restartButton;
 
     public static LevelEnd instance;
@@ -23,5 +24,6 @@ public class LevelEnd : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(m_restartButton.gameObject);
         gameObject.SetActive(true);
         m_winMessage.text = _winner + " Wins !";
+        m_winMessageOutline.text = _winner + " Wins !";
     }
 }

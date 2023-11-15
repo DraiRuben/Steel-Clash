@@ -11,6 +11,7 @@ public class SceneChanger : MonoBehaviour
     }
     public void Reload()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
     public void QuitGame()

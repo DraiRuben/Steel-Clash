@@ -33,10 +33,7 @@ public class PlayerHealth : MonoBehaviour
                 if (PlayerManager.instance.AlivePlayers.Count == 1)
                 {
                     LevelEnd.instance.DisplayWinMessage(PlayerManager.instance.AlivePlayers[0].PlayerName);
-                    foreach(var player in PlayerManager.instance.Players)
-                    {
-                        player.SetActive(false);
-                    }
+                    Time.timeScale = 0f;
                 }
             } 
         } 
