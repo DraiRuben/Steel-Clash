@@ -63,9 +63,9 @@ public class PlayerActionExecutor : MonoBehaviour
         {
             m_timeSinceLastJump += Time.fixedDeltaTime;
             //fast fall
-            if (m_player.Rb.gravityScale != m_jumpInfo.JumpHeldGravityScale && m_inputBuffer.CanAct)
+            if (m_player.Rb.gravityScale != m_jumpInfo.JumpHeldGravityScale)
             {
-                m_player.Rb.gravityScale = m_player.m_playerMovementInput.y < 0 ? m_movementInfo.FastFallGravityScale : 1;
+                m_player.Rb.gravityScale = m_player.m_playerMovementInput.y < 0 && m_inputBuffer.CanAct ? m_movementInfo.FastFallGravityScale : 1;
             }
             if (m_player.m_playerMovementInput.x != 0f
                 && !(m_feet.IsGrounded && !m_inputBuffer.CanAct))

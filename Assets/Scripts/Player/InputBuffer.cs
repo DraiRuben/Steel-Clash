@@ -73,6 +73,7 @@ public enum PlayerInputActionType
     SpecialAttack,
     UpSpecialAttack,
     Jump,
+    DownAttack
 }
 [Serializable]
 public struct AnimationFrameInfo

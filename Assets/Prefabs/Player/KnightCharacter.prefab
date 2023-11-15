@@ -458,7 +458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActionInputBuffer:
-    m_keys: 0000000001000000020000000300000004000000
+    m_keys: 000000000100000002000000030000000400000005000000
     m_values:
     - AllowedDirectionChanges: 0
       MaxTimer: 30
@@ -535,6 +535,21 @@ MonoBehaviour:
       Damage: 0
       Weapon: {fileID: 0}
       VelocityChange: {x: 0, y: 0}
+    - AllowedDirectionChanges: 0
+      MaxTimer: 30
+      MaxAirUses: 50
+      StartupFrameInfo:
+        FrameDuration: 7
+        FrameAnimationAmount: 1
+      ActiveFrames:
+        FrameDuration: 5
+        FrameAnimationAmount: 4
+      RecoveryFrames:
+        FrameDuration: 6
+        FrameAnimationAmount: 1
+      Damage: 6
+      Weapon: {fileID: 6576297431437843864}
+      VelocityChange: {x: 0, y: 0}
 --- !u!114 &846610792505087088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,6 +611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b87bd0d33742977428c229c8e209e6f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_feet: {fileID: 8698713282178430685}
 --- !u!114 &1567347488499836000
 MonoBehaviour:
   m_ObjectHideFlags: 0

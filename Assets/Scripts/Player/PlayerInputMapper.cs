@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerInputMapper : MonoBehaviour
 {
+    [SerializeField] private PlayerFeet m_feet;
     [NonSerialized] public Rigidbody2D Rb;
     [NonSerialized] public Vector2 m_playerMovementInput;
     [NonSerialized] public bool IsHoldingJump = false;
@@ -37,7 +38,15 @@ public class PlayerInputMapper : MonoBehaviour
     {
         if (ctx.performed)
         {
-            m_inputBuffer.TryDoAction(PlayerInputActionType.Attack);
+            if(!m_feet.IsGrounded && m_playerMovementInput.y < -0.6f)
+            {
+                m_inputBuffer.TryDoAction(PlayerInputActionType.DownAttack);
+
+            }
+            else
+            {
+                m_inputBuffer.TryDoAction(PlayerInputActionType.Attack);
+            }
         }
     }
     public void SpecialAttack(InputAction.CallbackContext ctx)
