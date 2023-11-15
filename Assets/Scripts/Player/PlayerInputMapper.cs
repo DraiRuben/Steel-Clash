@@ -60,11 +60,9 @@ public class PlayerInputMapper : MonoBehaviour
     }
     public void Pause(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (ctx.performed & LevelEnd.instance.gameObject.activeSelf == false)
         {
             PauseMenuHandler.Instance.PauseGame();
         }
     }
-
 }
-
