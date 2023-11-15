@@ -5,6 +5,7 @@ public class PlayerInputMapper : MonoBehaviour
     [HideInInspector] public Rigidbody2D Rb;
     [HideInInspector] public Vector2 m_playerMovementInput;
     [HideInInspector] public bool IsHoldingJump = false;
+    [HideInInspector] public bool IsLookingRight = true;
 
     private InputBuffer m_inputBuffer;
     private void Awake()
@@ -16,6 +17,7 @@ public class PlayerInputMapper : MonoBehaviour
     public void Movement(InputAction.CallbackContext ctx)
     {
         m_playerMovementInput = ctx.ReadValue<Vector2>();
+
     }
 
     public void Jump(InputAction.CallbackContext ctx)

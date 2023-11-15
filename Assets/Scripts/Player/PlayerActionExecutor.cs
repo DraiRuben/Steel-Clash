@@ -15,17 +15,21 @@ public class PlayerActionExecutor : MonoBehaviour
     private float m_timeSinceMovementInput = 0f;
     private float m_timeSinceLastJump = 0f;
     [HideInInspector] public bool DontOverrideVelX = false;
+    [HideInInspector] public bool HasBeenHit = false;
+    [HideInInspector] public float HitDirX = -1;
     private PlayerAnimationManager m_animationManager;
     private PlayerInputMapper m_player;
     private InputBuffer m_inputBuffer;
-
+    private PlayerInputAction m_currentAction;
     private Animator m_animator;
+    private PlayerHealth m_playerHealth;
     private void Awake()
     {
         m_animator = GetComponent<Animator>();
         m_inputBuffer = GetComponent<InputBuffer>();
         m_player = GetComponent<PlayerInputMapper>();
         m_animationManager = GetComponent<PlayerAnimationManager>();
+        m_playerHealth = GetComponent<PlayerHealth>();
     }
     [Serializable]
     public struct JumpInfo
@@ -42,7 +46,8 @@ public class PlayerActionExecutor : MonoBehaviour
         public float TimeToReachMaxSpeed;
         public float GroundDrag;
         public float AirDrag;
-        public AnimationCurve m_movementCurve;
+        public float AttackGroundDrag;
+        public AnimationCurve MovementEvolution;
     }
     private bool CanUseAction(PlayerInputActionType actionType)
     {
@@ -58,26 +63,46 @@ public class PlayerActionExecutor : MonoBehaviour
         if (Time.timeScale != 0)
         {
             m_timeSinceLastJump += Time.fixedDeltaTime;
-            if (m_player.m_playerMovementInput.x != 0f)
+            if (m_player.m_playerMovementInput.x != 0f
+                && !(m_feet.IsGrounded && !m_inputBuffer.CanAct) )
             {
-                transform.rotation = Quaternion.Euler(0, m_player.m_playerMovementInput.x < 0 ? 180 : 0, 0);
-
+                if(m_currentAction ==null || m_currentAction.DirectionChangesUsed < m_currentAction.AllowedDirectionChanges)
+                {
+                    float newRot = m_player.m_playerMovementInput.x < 0 ? 180 : 0;
+                    if (newRot != transform.rotation.eulerAngles.y) 
+                    {
+                        m_player.IsLookingRight = newRot == 0f;
+                        if(m_currentAction != null)
+                            m_currentAction.DirectionChangesUsed++;
+                        transform.rotation = Quaternion.Euler(0, newRot, 0);
+                    }
+                }
+                if (HasBeenHit && Mathf.Sign(m_player.Rb.velocity.x) != HitDirX)
+                {
+                    HasBeenHit = false;
+                }
                 //if we suddenly change directions, don't keep the current curve's value, reset it as if we stopped moving
                 //so that the player doesn't have sudden changes in movement and teleports around
                 if (m_player.m_playerMovementInput.x > 0 && m_player.Rb.velocity.x < 0
                     || m_player.m_playerMovementInput.x < 0 && m_player.Rb.velocity.x > 0)
                 {
                     m_timeSinceMovementInput = 0f;
-                    m_player.Rb.velocity = new(0, m_player.Rb.velocity.y);
+                    if (m_feet.IsGrounded || (!m_feet.IsGrounded && !HasBeenHit))
+                        m_player.Rb.velocity = new(m_player.Rb.velocity.x*0.85f, m_player.Rb.velocity.y);
+
                 }
                 else
                 {
                     m_timeSinceMovementInput += Time.fixedDeltaTime / m_movementInfo.TimeToReachMaxSpeed;
                 }
-                m_player.Rb.velocity = new(
-                    DontOverrideVelX ? m_player.Rb.velocity.x :
-                        m_player.m_playerMovementInput.x * (m_feet.IsGrounded ? m_movementInfo.GroundMovementSpeed : m_movementInfo.AirMovementSpeed) * m_movementInfo.m_movementCurve.Evaluate(m_timeSinceMovementInput),
-                    m_player.Rb.velocity.y);
+                float MovementSpeed = (m_feet.IsGrounded ? m_movementInfo.GroundMovementSpeed : m_movementInfo.AirMovementSpeed);
+                float AddVelX = DontOverrideVelX ? m_player.Rb.velocity.x :
+                        m_player.m_playerMovementInput.x * MovementSpeed *(1/m_movementInfo.MovementEvolution.Evaluate(m_timeSinceMovementInput));
+                if (Mathf.Abs(m_player.Rb.velocity.x+AddVelX) > MovementSpeed)
+                {
+                    AddVelX = (MovementSpeed - Mathf.Abs(m_player.Rb.velocity.x)) * Mathf.Sign(m_player.m_playerMovementInput.x);
+                }
+                m_player.Rb.AddForce(new Vector2(AddVelX,0), ForceMode2D.Force);
 
                 if (m_inputBuffer.CanAct)
                     m_animator.SetInteger("State", 1);
@@ -86,7 +111,7 @@ public class PlayerActionExecutor : MonoBehaviour
             {
                 m_timeSinceMovementInput = 0f;
                 m_player.Rb.velocity = Mathf.Abs(m_player.Rb.velocity.x) > 0.5f ?
-                    new(m_player.Rb.velocity.x * (1 - (m_feet.IsGrounded ? m_movementInfo.GroundDrag : m_movementInfo.AirDrag) * Time.fixedDeltaTime), m_player.Rb.velocity.y)
+                    new(m_player.Rb.velocity.x * (1 - (m_feet.IsGrounded ?m_inputBuffer.CanAct? m_movementInfo.GroundDrag:m_movementInfo.AttackGroundDrag : m_movementInfo.AirDrag) * Time.fixedDeltaTime), m_player.Rb.velocity.y)
                     : new(0, m_player.Rb.velocity.y);
 
                 if (m_inputBuffer.CanAct)
@@ -103,6 +128,7 @@ public class PlayerActionExecutor : MonoBehaviour
                 {
                     m_animator.SetInteger("State", (int)actionType + 4);
                     m_player.Rb.velocity = new(m_player.Rb.velocity.x, 0); //resets y so that the impulse is the same when falling and on ground
+                    HasBeenHit = false;
                     m_player.Rb.AddForce(Vector2.up * m_jumpInfo.JumpStrength, ForceMode2D.Impulse);
                     CurrentJumpAmount++;
                     StartCoroutine(TryHoldJump());
@@ -111,14 +137,27 @@ public class PlayerActionExecutor : MonoBehaviour
             default:
                 m_animator.SetInteger("State", (int)actionType + 4); //0 for idle, 1 for walk, 2 for hurt, 3 for dizzy
                 m_animationManager.m_actionInfo = (actionType, actionInfo);
-                if (actionInfo.Weapon != null) actionInfo.Weapon.Damage = actionInfo.Damage;
+                m_currentAction = actionInfo;
+                actionInfo.DirectionChangesUsed = 0;
+                if (actionInfo.Weapon != null) 
+                { 
+                    actionInfo.Weapon.Damage = actionInfo.Damage; 
+                    actionInfo.Weapon.IsCounter = actionType == PlayerInputActionType.Counter;
+                    m_playerHealth.IsCountering = actionInfo.Weapon.IsCounter;
+                }
                 StartCoroutine(ActionStun(actionInfo));
                 break;
         }
     }
     public void Hurt(int damageReceived)
     {
-        m_animator.speed = damageReceived * 1.5f;
+        m_animator.speed = 4f /damageReceived;
+        m_playerHealth.IsCountering = false;
+        StartCoroutine(ActionStun());
+    }
+    public void CounterStun()
+    {
+        StopAllCoroutines();
         StartCoroutine(ActionStun());
     }
     private IEnumerator ActionStun(PlayerInputAction actionInfo = null)
@@ -132,8 +171,9 @@ public class PlayerActionExecutor : MonoBehaviour
             DontOverrideVelX = actionInfo.VelocityChange.x != 0;
         }
         yield return new WaitWhile(() => animationState == m_animator.GetInteger("State"));
-
+        m_currentAction = null;
         m_inputBuffer.CanAct = true;
+        m_playerHealth.IsCountering = false;
     }
     private IEnumerator TryHoldJump()
     {

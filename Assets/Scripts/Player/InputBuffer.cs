@@ -44,9 +44,11 @@ public class InputBuffer : MonoBehaviour
 [Serializable]
 public class PlayerInputAction
 {
+    public int AllowedDirectionChanges;
     public int MaxTimer; // this is a frame ammount, not seconds
     [HideInInspector] public int TimerSinceInput; //same thing here
     [HideInInspector] public int AirUses;
+    [HideInInspector] public int DirectionChangesUsed;
     public int MaxAirUses;
 
     [Header("Frame Data")]
@@ -60,6 +62,8 @@ public class PlayerInputAction
 
     [Header("Movement")]
     public Vector2 VelocityChange;
+
+    
 }
 [Serializable]
 public enum PlayerInputActionType

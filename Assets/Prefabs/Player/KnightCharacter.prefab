@@ -373,6 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 0
+  IsCounter: 0
 --- !u!1 &4974429354845731865
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,9 +466,11 @@ MonoBehaviour:
   ActionInputBuffer:
     m_keys: 0000000001000000020000000300000004000000
     m_values:
-    - MaxTimer: 30
+    - AllowedDirectionChanges: 0
+      MaxTimer: 30
       TimerSinceInput: 0
       AirUses: 0
+      DirectionChangesUsed: 0
       MaxAirUses: 50
       StartupFrameInfo:
         FrameDuration: 3
@@ -479,11 +482,13 @@ MonoBehaviour:
         FrameDuration: 20
         FrameAnimationAmount: 1
       Damage: 0
-      Weapon: {fileID: 0}
+      Weapon: {fileID: 6576297431437843864}
       VelocityChange: {x: 0, y: 0}
-    - MaxTimer: 30
+    - AllowedDirectionChanges: 0
+      MaxTimer: 30
       TimerSinceInput: 0
       AirUses: 0
+      DirectionChangesUsed: 0
       MaxAirUses: 50
       StartupFrameInfo:
         FrameDuration: 7
@@ -497,9 +502,11 @@ MonoBehaviour:
       Damage: 4
       Weapon: {fileID: 6576297431437843864}
       VelocityChange: {x: 0, y: 0}
-    - MaxTimer: 30
+    - AllowedDirectionChanges: 1
+      MaxTimer: 30
       TimerSinceInput: 0
       AirUses: 0
+      DirectionChangesUsed: 0
       MaxAirUses: 50
       StartupFrameInfo:
         FrameDuration: 15
@@ -513,9 +520,11 @@ MonoBehaviour:
       Damage: 15
       Weapon: {fileID: 6576297431437843864}
       VelocityChange: {x: 0, y: 0}
-    - MaxTimer: 30
+    - AllowedDirectionChanges: 1
+      MaxTimer: 30
       TimerSinceInput: 0
       AirUses: 0
+      DirectionChangesUsed: 0
       MaxAirUses: 1
       StartupFrameInfo:
         FrameDuration: 6
@@ -529,9 +538,11 @@ MonoBehaviour:
       Damage: 10
       Weapon: {fileID: 6576297431437843864}
       VelocityChange: {x: 0, y: 20}
-    - MaxTimer: 30
+    - AllowedDirectionChanges: 0
+      MaxTimer: 30
       TimerSinceInput: 0
       AirUses: 0
+      DirectionChangesUsed: 0
       MaxAirUses: 2
       StartupFrameInfo:
         FrameDuration: 30
@@ -562,17 +573,18 @@ MonoBehaviour:
     JumpHeldGravityScale: 0.5
     JumpCooldown: 0
   m_movementInfo:
-    GroundMovementSpeed: 7
-    AirMovementSpeed: 7
-    TimeToReachMaxSpeed: 0.4
+    GroundMovementSpeed: 22
+    AirMovementSpeed: 22
+    TimeToReachMaxSpeed: 0.2
     GroundDrag: 9.5
     AirDrag: 0.7
-    m_movementCurve:
+    AttackGroundDrag: 2.5
+    MovementEvolution:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.09964761
+        value: 0.01
         inSlope: 2
         outSlope: 2
         tangentMode: 0
@@ -593,6 +605,7 @@ MonoBehaviour:
       m_RotationOrder: 4
   m_feet: {fileID: 8698713282178430685}
   CurrentJumpAmount: 0
+  DontOverrideVelX: 0
 --- !u!114 &5406983772072192466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,6 +621,7 @@ MonoBehaviour:
   Rb: {fileID: 0}
   m_playerMovementInput: {x: 0, y: 0}
   IsHoldingJump: 0
+  IsLookingRight: 1
 --- !u!114 &1567347488499836000
 MonoBehaviour:
   m_ObjectHideFlags: 0

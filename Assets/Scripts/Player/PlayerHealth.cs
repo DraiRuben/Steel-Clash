@@ -43,26 +43,15 @@ public class PlayerHealth : MonoBehaviour
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
-        float kbPower = Mathf.Log(_damageTaken) * m_percentage / 10;
-        Vector3 kbDir = _attackingPlayer.velocity.normalized;
-
-        //if player isn't moving or if the player is getting pushed by the attacked player
-        if (kbDir.magnitude == 0f || IsInCone(45f,rb.velocity.normalized,kbDir))
-        {
-            kbDir = (transform.position- _attackingPlayer.transform.position).normalized + Vector3.up;
-            Debug.Log("adjusted");
-        }
+        float kbPower = (float)(Mathf.Log(_damageTaken) * m_percentage )/ 9f;
+        Vector2 kbDir = (transform.position- _attackingPlayer.transform.position).normalized;
+        
         rb.velocity = Vector3.zero;
         rb.AddForce(kbDir * kbPower,ForceMode2D.Impulse);
+        m_actionExecutor.HitDirX = Mathf.Sign(kbDir.x);
+        m_actionExecutor.HasBeenHit = true;
         m_actionExecutor.Hurt(_damageTaken);
 
-    }
-    private bool IsInCone(float _angle, Vector3 _bisector, Vector3 _toTest)
-    {
-        float dotProduct = Vector3.Dot(_bisector, _toTest);
-        float angleBetween = Mathf.Acos(dotProduct) * Mathf.Rad2Deg;
-
-        return angleBetween <= _angle;
     }
     public void SpawnInvulnerability()
     {

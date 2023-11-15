@@ -6,28 +6,38 @@ using UnityEngine.Events;
 public class PlayerAttack : MonoBehaviour
 {
     [HideInInspector] public int Damage;
+    [HideInInspector] public bool IsCounter;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(!collision.isTrigger && collision.CompareTag("Player"))
+        if(!IsCounter && !collision.isTrigger && collision.CompareTag("Player"))
         {
-            var HealthModule = collision.transform.root.GetComponent<PlayerHealth>();
+            Transform HitPlayer = collision.transform.root;
+            var HealthModule = HitPlayer.GetComponent<PlayerHealth>();
+
             if (!HealthModule.IsInvulnerable)
             {
-                if (HealthModule.IsCountering)
+                if (HealthModule.IsCountering
+                    && ((transform.root.position.x< HitPlayer.position.x && !HitPlayer.GetComponent<PlayerInputMapper>().IsLookingRight)
+                    || transform.root.position.x > HitPlayer.position.x && HitPlayer.GetComponent<PlayerInputMapper>().IsLookingRight))
                 {
                     transform.root.GetComponent<Animator>().SetInteger("State", 3);
+                    transform.root.GetComponent<PlayerActionExecutor>().CounterStun();
+                    HitPlayer.GetComponent<PlayerAnimationManager>().ReduceRecovery = true;
                 }
                 else
                 {
                     HealthModule.Percentage += Damage; 
-                    collision.transform.root.GetComponent<Animator>().SetInteger("State", 2);
+                    HitPlayer.GetComponent<Animator>().SetInteger("State", 2);
                     HealthModule.ApplyKnockBack(Damage, transform.root.GetComponent<PlayerInputMapper>().Rb);
-                    collision.transform.root.GetComponent<PlayerAnimationManager>().ReduceRecovery = true;
+                    transform.root.GetComponent<PlayerAnimationManager>().ReduceRecovery = true;
                 }
             }
             else if (HealthModule.IsCountering)
             {
                 transform.root.GetComponent<Animator>().SetInteger("State", 3);
+                transform.root.GetComponent<PlayerActionExecutor>().CounterStun();
+                HitPlayer.GetComponent<PlayerAnimationManager>().ReduceRecovery = true;
+
             }
         }
     }
