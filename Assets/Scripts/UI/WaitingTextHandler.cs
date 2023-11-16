@@ -14,7 +14,7 @@ public class WaitingTextHandler : MonoBehaviour
 
     #region
     void Start()
-    {
+    {   
         StartCoroutine(BlinkingTheText(_text, _textOutline, _timeBetweenBlinking));
     }
 
@@ -22,15 +22,25 @@ public class WaitingTextHandler : MonoBehaviour
     {
         while (PlayerInputManager.instance.playerCount < 2)
         {
-            text.SetActive(true); 
-            textOutline.SetActive(true);
+            if (PauseMenuHandler.Instance.gameObject.activeSelf == false)
+            {
+                text.SetActive(true);
+                textOutline.SetActive(true);
 
-            yield return new WaitForSecondsRealtime(timeBetweenBlinking);
+                yield return new WaitForSecondsRealtime(timeBetweenBlinking);
 
-            text.SetActive(false); 
-            textOutline.SetActive(false);
+                text.SetActive(false);
+                textOutline.SetActive(false);
 
-            yield return new WaitForSecondsRealtime(timeBetweenBlinking);
+                yield return new WaitForSecondsRealtime(timeBetweenBlinking);
+            }
+            else
+            {
+                text.SetActive(false);
+                textOutline.SetActive(false);
+
+                yield return new WaitForSecondsRealtime(timeBetweenBlinking);
+            }
         }
     }
     #endregion
