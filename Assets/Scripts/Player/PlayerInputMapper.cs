@@ -72,9 +72,10 @@ public class PlayerInputMapper : MonoBehaviour
     }
     public void GoThroughPlatform(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && m_feet.IsGrounded && m_feet.CurrentPlatform)
+        if (ctx.performed && m_feet.IsGrounded && m_feet.CurrentPlatform!=null)
         {
             m_feet.CurrentPlatform.GoThrough();
+            Debug.Log("test");
         }
     }
     public void Pause(InputAction.CallbackContext ctx)

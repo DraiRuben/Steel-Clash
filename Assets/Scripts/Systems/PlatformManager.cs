@@ -11,7 +11,6 @@ public class PlatformManager : MonoBehaviour
     public void GenerateCollision(int _playerCount, PlayerFeet target)
     {
         GameObject Instantiated = Instantiate(m_platform, transform);
-        Instantiated.GetComponent<Platform>().Target = target;
-        Instantiated.layer = LayerMask.NameToLayer($"Player{_playerCount}Platforms");
+        Instantiated.GetComponent<PlatformEffector2D>().colliderMask = LayerMask.GetMask("Player"+_playerCount);
     }
 }

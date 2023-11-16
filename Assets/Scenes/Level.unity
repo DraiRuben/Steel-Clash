@@ -4525,18 +4525,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
-    - target: {fileID: 2107781906020823667, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
-      propertyPath: m_Lens.OrthographicSize
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2384890993657853668, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2384890993657853668, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4940590614141281813, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4576,10 +4564,6 @@ PrefabInstance:
     - target: {fileID: 4940590614141281813, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7612656692450016954, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
-      propertyPath: orthographic size
-      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4824,10 +4808,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundEffectHandler
       objectReference: {fileID: 0}
-    - target: {fileID: 6707043789831585132, guid: f0194f71cdc2f43488b89f8eb9092901, type: 3}
-      propertyPath: _audioSourcePrefab
-      value: 
-      objectReference: {fileID: 7817589391108109599, guid: 159761f962b9e544385396fa55c8787a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

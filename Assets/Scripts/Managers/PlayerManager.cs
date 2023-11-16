@@ -44,7 +44,7 @@ public class PlayerManager : MonoBehaviour
 
         PlayerHealth Health = input.GetComponent<PlayerHealth>();
         Health.m_display = _statsInterfaceHandler;
-        Health.Body.layer = LayerMask.NameToLayer($"Player{inputManager.playerCount}");
+        Health.Body.layer = LayerMask.NameToLayer("Player" + inputManager.playerCount);
         Health.PlayerName = "Player " + inputManager.playerCount;
         AlivePlayers.Add(Health);
         PlayerFeet playerFeet = input.GetComponent<PlayerActionExecutor>().m_feet;
