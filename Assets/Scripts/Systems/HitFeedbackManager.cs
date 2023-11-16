@@ -8,11 +8,18 @@ public class HitFeedbackManager : MonoBehaviour
     [SerializeField] private GameObject m_counterParticleSystem;
     public static HitFeedbackManager instance;
 
+    public enum HitType
+    {
+        Hit,
+        Counter
+    }
+
     private void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
     }
+
     public void DisplayHit(Vector3 _hitPos,HitType _type)
     {
         if (_type == HitType.Hit)
@@ -27,10 +34,5 @@ public class HitFeedbackManager : MonoBehaviour
 
             SoundEffectHandler.Instance.PlaySoundEffect(SoundEffectHandler.SoundEffectEnum.counterHit);
         }
-    }
-    public enum HitType
-    {
-        Hit,
-        Counter
     }
 }

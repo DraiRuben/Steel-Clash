@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SoundEffectHandler : MonoBehaviour
@@ -29,27 +31,38 @@ public class SoundEffectHandler : MonoBehaviour
         }
     }
 
+    /// <summary> Play a sound effect </summary>
     public void PlaySoundEffect(SoundEffectEnum soundType)
     {
         switch (soundType)
         {
             case SoundEffectEnum.hit:
-                CreatePrefabAndPlaySound(_hit);
+                StartCoroutine(CreatePrefabPlaySoundAndDestroy(_hit));
                 break;
             
             case SoundEffectEnum.counterHit:
-                CreatePrefabAndPlaySound(_counterHit);
+                StartCoroutine(CreatePrefabPlaySoundAndDestroy(_counterHit));
                 break;
 
             case SoundEffectEnum.death:
-                CreatePrefabAndPlaySound(_death);
+                StartCoroutine(CreatePrefabPlaySoundAndDestroy(_death));
                 break;
         }
     }
 
-    void CreatePrefabAndPlaySound(AudioClip audioClip)
+    // To optimise this code we can use the Polling method 
+
+    /// <summary> Create a new GameObject, assigns a audio clip to it and play it, after that the GameObject is Destroy</summary>
+    IEnumerator CreatePrefabPlaySoundAndDestroy(AudioClip audioClip)
     {
-        Instantiate(_audioSourcePrefab, gameObject.transform).GetComponent<AudioSource>().clip = audioClip;
+        AudioSource audioSource = Instantiate(_audioSourcePrefab, gameObject.transform).GetComponent<AudioSource>();
+
+        audioSource.clip = audioClip;
+        audioSource.Play();
+
+        yield return new WaitForSecondsRealtime(audioClip.length);
+
+        Destroy(audioSource.GameObject());
     }
     #endregion
 }
