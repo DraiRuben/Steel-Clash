@@ -863,6 +863,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 1434508930312769569, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
+      value: -0.6610378
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434508930312769569, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].y
+      value: 0.80045784
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434508930312769569, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].x
+      value: -0.66563886
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434508930312769569, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].y
+      value: -0.7912867
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434508930312769569, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
+      value: 0.6753826
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434508930312769569, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].y
+      value: -0.7856044
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434508930312769569, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].x
+      value: 0.66573757
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434508930312769569, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].y
+      value: 0.79240596
+      objectReference: {fileID: 0}
     - target: {fileID: 2107781906020823667, guid: 063b443c1cade2543aaf2538934862b1, type: 3}
       propertyPath: m_Lens.OrthographicSize
       value: 15

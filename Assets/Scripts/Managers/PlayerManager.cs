@@ -47,9 +47,12 @@ public class PlayerManager : MonoBehaviour
         Health.Body.layer = LayerMask.NameToLayer($"Player{inputManager.playerCount}");
         Health.PlayerName = "Player " + inputManager.playerCount;
         AlivePlayers.Add(Health);
+        PlayerFeet playerFeet = input.GetComponent<PlayerActionExecutor>().m_feet;
+        playerFeet.gameObject.layer = LayerMask.NameToLayer("Player" + inputManager.playerCount);
+        
         foreach (PlatformManager p in Platforms)
         {
-            p.GenerateCollision(inputManager.playerCount, input.GetComponent<PlayerActionExecutor>().m_feet);
+            p.GenerateCollision(inputManager.playerCount, playerFeet);
         }
         SpawnManager.instance.PutPlayerAtSpawnPoint(inputManager.playerCount, input.gameObject);
     }

@@ -2,8 +2,9 @@ using UnityEngine;
 using System;
 public class PlayerFeet : MonoBehaviour
 {
-    [NonSerialized] public bool IsGrounded = true;
+    [NonSerialized] public bool IsGrounded;
     [NonSerialized] public BoxCollider2D Collider;
+    [NonSerialized] public Platform CurrentPlatform;
     private PlayerActionExecutor m_executor;
     private InputBuffer m_inputBuffer;
     private void Awake()
@@ -19,6 +20,7 @@ public class PlayerFeet : MonoBehaviour
             IsGrounded = true;
             m_executor.CurrentJumpAmount = 0;
             m_inputBuffer.ResetAirUses();
+            CurrentPlatform = collision.GetComponent<Platform>();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -26,6 +28,7 @@ public class PlayerFeet : MonoBehaviour
         if (!collision.isTrigger && collision.CompareTag("Ground"))
         {
             IsGrounded = false;
+            CurrentPlatform = null;
         }
     }
 }

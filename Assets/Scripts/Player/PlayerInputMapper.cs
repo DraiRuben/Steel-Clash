@@ -70,6 +70,13 @@ public class PlayerInputMapper : MonoBehaviour
             m_inputBuffer.TryDoAction(PlayerInputActionType.Counter);
         }
     }
+    public void GoThroughPlatform(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed && m_feet.IsGrounded && m_feet.CurrentPlatform)
+        {
+            m_feet.CurrentPlatform.GoThrough();
+        }
+    }
     public void Pause(InputAction.CallbackContext ctx)
     {
         if (ctx.performed & LevelEnd.instance.gameObject.activeSelf == false)
