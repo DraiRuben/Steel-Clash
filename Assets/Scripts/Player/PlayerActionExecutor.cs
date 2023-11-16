@@ -24,12 +24,14 @@ public class PlayerActionExecutor : MonoBehaviour
     private PlayerInputAction m_currentAction;
     private InputBuffer m_inputBuffer;
     private Animator m_animator;
+    private PlayerHealth m_health;
     private void Awake()
     {
         m_animator = GetComponent<Animator>();
         m_inputBuffer = GetComponent<InputBuffer>();
         m_player = GetComponent<PlayerInputMapper>();
         m_animationManager = GetComponent<PlayerAnimationManager>();
+        m_health = GetComponent<PlayerHealth>();
     }
     [Serializable]
     public struct JumpInfo
@@ -139,6 +141,7 @@ public class PlayerActionExecutor : MonoBehaviour
             case PlayerInputActionType.Jump:
                 if (m_timeSinceLastJump >= m_jumpInfo.JumpCooldown)
                 {
+                    m_health.MakeInvincible(0);
                     m_animator.SetInteger("State", (int)actionType + 4);
                     m_player.Rb.velocity = new(m_player.Rb.velocity.x, 0); //resets y so that the impulse is the same when falling and on ground
                     HasBeenHit = false;
@@ -148,6 +151,7 @@ public class PlayerActionExecutor : MonoBehaviour
                 }
                 break;
             default:
+                m_health.MakeInvincible(0);
                 m_animator.SetInteger("State", (int)actionType + 4); //0 for idle, 1 for walk, 2 for hurt, 3 for dizzy
                 m_animationManager.m_actionInfo = (actionType, actionInfo);
                 m_currentAction = actionInfo;
