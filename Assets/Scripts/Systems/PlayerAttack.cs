@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
         {
             Transform HitPlayer = collision.transform.root;
             PlayerHealth HealthModule = HitPlayer.GetComponent<PlayerHealth>();
+            Vector3 CollisionPos = collision.ClosestPoint(transform.position);
 
             if (!HealthModule.IsInvulnerable)
             {
@@ -23,6 +24,7 @@ public class PlayerAttack : MonoBehaviour
                     transform.root.GetComponent<Animator>().SetInteger("State", 3);
                     transform.root.GetComponent<PlayerActionExecutor>().CounterStun();
                     HitPlayer.GetComponent<PlayerAnimationManager>().ReduceRecovery = true;
+                    HitFeedbackManager.instance.DisplayHit(CollisionPos + Vector3.back, HitFeedbackManager.HitType.Counter);
                 }
                 else
                 {
@@ -30,6 +32,8 @@ public class PlayerAttack : MonoBehaviour
                     HitPlayer.GetComponent<Animator>().SetInteger("State", 2);
                     HealthModule.ApplyKnockBack(Damage, transform.root.GetComponent<PlayerInputMapper>().Rb);
                     transform.root.GetComponent<PlayerAnimationManager>().ReduceRecovery = true;
+                    HitFeedbackManager.instance.DisplayHit(CollisionPos + Vector3.back, HitFeedbackManager.HitType.Hit);
+
                 }
             }
             else if (HealthModule.IsCountering)
@@ -37,6 +41,7 @@ public class PlayerAttack : MonoBehaviour
                 transform.root.GetComponent<Animator>().SetInteger("State", 3);
                 transform.root.GetComponent<PlayerActionExecutor>().CounterStun();
                 HitPlayer.GetComponent<PlayerAnimationManager>().ReduceRecovery = true;
+                HitFeedbackManager.instance.DisplayHit(CollisionPos + Vector3.back, HitFeedbackManager.HitType.Counter);
 
             }
         }
