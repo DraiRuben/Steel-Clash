@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InputBuffer : MonoBehaviour
@@ -63,7 +64,9 @@ public class PlayerInputAction
     [Header("Movement")]
     public Vector2 VelocityChange;
 
-
+    [Header("Audio")]
+    public AudioSource AudioPlayer;
+    public List<AudioClip> SfxToPlay;
 }
 [Serializable]
 public enum PlayerInputActionType

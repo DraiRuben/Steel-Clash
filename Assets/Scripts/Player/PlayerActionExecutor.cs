@@ -151,6 +151,11 @@ public class PlayerActionExecutor : MonoBehaviour
                 m_animator.SetInteger("State", (int)actionType + 4); //0 for idle, 1 for walk, 2 for hurt, 3 for dizzy
                 m_animationManager.m_actionInfo = (actionType, actionInfo);
                 m_currentAction = actionInfo;
+                if(actionInfo.AudioPlayer != null)
+                {
+                    actionInfo.AudioPlayer.clip = actionInfo.SfxToPlay[UnityEngine.Random.Range(0,actionInfo.SfxToPlay.Count)];
+                    actionInfo.AudioPlayer.Play();
+                }
                 actionInfo.DirectionChangesUsed = 0;
                 if (actionInfo.Weapon != null)
                 {
