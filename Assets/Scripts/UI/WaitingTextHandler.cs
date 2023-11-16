@@ -1,5 +1,4 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,8 +10,6 @@ public class WaitingTextHandler : MonoBehaviour
 
     [Header("Customizable values")]
     [SerializeField] float _timeBetweenBlinking;
-    [SerializeField] string _waitingTextFirstPlayer;
-    [SerializeField] string _waitingTextSecondPlayer;
     #endregion
 
     #region
@@ -23,7 +20,7 @@ public class WaitingTextHandler : MonoBehaviour
 
     IEnumerator BlinkingTheText(GameObject text, GameObject textOutline, float timeBetweenBlinking)
     {
-        while (PlayerInputManager.instance.playerCount == 1)
+        while (PlayerInputManager.instance.playerCount < 2)
         {
             text.SetActive(true); 
             textOutline.SetActive(true);

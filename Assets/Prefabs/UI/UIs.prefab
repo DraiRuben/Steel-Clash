@@ -234,7 +234,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player X Won !
+  m_text: Player X Wins !
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 12be13c737c6533428312f4e14e55f8c, type: 2}
   m_sharedMaterial: {fileID: 840040744442150936, guid: 12be13c737c6533428312f4e14e55f8c, type: 2}
@@ -1111,7 +1111,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player X Won !
+  m_text: Player X Wins !
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 12be13c737c6533428312f4e14e55f8c, type: 2}
   m_sharedMaterial: {fileID: 840040744442150936, guid: 12be13c737c6533428312f4e14e55f8c, type: 2}
@@ -1192,7 +1192,7 @@ GameObject:
   - component: {fileID: 4851471563602619270}
   - component: {fileID: 4340825950837695926}
   m_Layer: 0
-  m_Name: WinDisplay
+  m_Name: WinMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1392,7 +1392,7 @@ GameObject:
   - component: {fileID: 2269753800774207041}
   - component: {fileID: 751369150504993550}
   m_Layer: 0
-  m_Name: WaitingSecondPlayer
+  m_Name: WaitingPlayers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1499,7 +1499,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Connect a gamepad and press any button on it, to begin the fight
+  m_text: Press a key to bring up your character
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 12be13c737c6533428312f4e14e55f8c, type: 2}
   m_sharedMaterial: {fileID: 840040744442150936, guid: 12be13c737c6533428312f4e14e55f8c, type: 2}
@@ -1633,7 +1633,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Connect a gamepad and press any button on it, to begin the fight
+  m_text: Press a key to bring up your character
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 12be13c737c6533428312f4e14e55f8c, type: 2}
   m_sharedMaterial: {fileID: 840040744442150936, guid: 12be13c737c6533428312f4e14e55f8c, type: 2}
