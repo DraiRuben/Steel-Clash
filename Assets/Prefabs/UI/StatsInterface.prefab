@@ -453,11 +453,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48ab6a9cbd8c3704b8bcb4b077116868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerCircleImage: {fileID: 8814512248719413214}
-  _playerNumberTextMeshPro: {fileID: 1955222040507584120}
-  _pourcentageTextMeshPro: {fileID: 2327158041358938918}
-  _pourcentageOutlineTextMeshPro: {fileID: 373523110899543945}
-  _fullLifeImageArray:
+  m_playerCircleImage: {fileID: 8814512248719413214}
+  m_playerNumberTextMeshPro: {fileID: 1955222040507584120}
+  m_pourcentageTextMeshPro: {fileID: 2327158041358938918}
+  m_pourcentageOutlineTextMeshPro: {fileID: 373523110899543945}
+  m_fullLifeImageArray:
   - {fileID: 8290576553865754422}
   - {fileID: 426275106453151174}
   - {fileID: 6388722788572363192}

@@ -697,7 +697,7 @@ MonoBehaviour:
   m_jumpInfo:
     JumpStrength: 12
     JumpHeldGravityScale: 0.5
-    JumpCooldown: 0
+    JumpCooldown: 0.2
   m_movementInfo:
     GroundMovementSpeed: 22
     AirMovementSpeed: 22
@@ -730,7 +730,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  m_feet: {fileID: 8698713282178430685}
+  Feet: {fileID: 8698713282178430685}
 --- !u!114 &5406983772072192466
 MonoBehaviour:
   m_ObjectHideFlags: 0

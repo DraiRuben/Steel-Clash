@@ -5,11 +5,11 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private List<Transform> SpawnPoints;
 
-    public static SpawnManager instance;
+    public static SpawnManager Instance;
     private void Awake()
     {
-        if (instance == null) instance = this;
-        else Destroy(instance);
+        if (Instance == null) Instance = this;
+        else Destroy(Instance);
     }
 
     public void PutPlayerAtSpawnPoint(int _playerID, GameObject _player)

@@ -6,9 +6,9 @@ public class PlatformManager : MonoBehaviour
     //When a new player joins, add a new platform linked to that player
     private void Start()
     {
-        PlayerManager.instance.Platforms.Add(this);
+        PlayerManager.Instance.Platforms.Add(this);
     }
-    public void GenerateCollision(int _playerCount, PlayerFeet target)
+    public void GenerateCollision(int _playerCount)
     {
         GameObject Instantiated = Instantiate(m_platform, transform);
         Instantiated.GetComponent<PlatformEffector2D>().colliderMask = LayerMask.GetMask("Player"+_playerCount);

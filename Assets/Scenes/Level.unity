@@ -4582,6 +4582,10 @@ PrefabInstance:
       propertyPath: _statsInterfacesParent
       value: 
       objectReference: {fileID: 2072229854}
+    - target: {fileID: 1910704354483107214, guid: 04a288363830d0c429672dc437d9e26f, type: 3}
+      propertyPath: m_statsInterfacesParent
+      value: 
+      objectReference: {fileID: 2072229854}
     - target: {fileID: 4717628095362261275, guid: 04a288363830d0c429672dc437d9e26f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.2285851

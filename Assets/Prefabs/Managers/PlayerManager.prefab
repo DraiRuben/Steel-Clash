@@ -89,6 +89,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9411e5ec9765f8a43a5ce5e6f1be6594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Platforms: []
-  _statsInterfacePrefab: {fileID: 2643628439372524635, guid: c662c3c6336565b4bbdcdd65d26a17c5, type: 3}
-  _statsInterfacesParent: {fileID: 0}
+  m_statsInterfacePrefab: {fileID: 2643628439372524635, guid: c662c3c6336565b4bbdcdd65d26a17c5, type: 3}
+  m_statsInterfacesParent: {fileID: 0}

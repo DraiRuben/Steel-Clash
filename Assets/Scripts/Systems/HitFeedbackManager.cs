@@ -6,7 +6,7 @@ public class HitFeedbackManager : MonoBehaviour
 {
     [SerializeField] private GameObject m_hitParticleSystem;
     [SerializeField] private GameObject m_counterParticleSystem;
-    public static HitFeedbackManager instance;
+    public static HitFeedbackManager Instance;
 
     public enum HitType
     {
@@ -16,7 +16,7 @@ public class HitFeedbackManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null) instance = this;
+        if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
 

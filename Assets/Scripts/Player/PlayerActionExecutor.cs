@@ -8,7 +8,7 @@ public class PlayerActionExecutor : MonoBehaviour
 {
     [SerializeField] private JumpInfo m_jumpInfo;
     [SerializeField] private MovementInfo m_movementInfo;
-    public PlayerFeet m_feet;
+    public PlayerFeet Feet;
 
     private float m_timeSinceMovementInput = 0f;
     private float m_timeSinceLastJump = 0f;
@@ -53,7 +53,7 @@ public class PlayerActionExecutor : MonoBehaviour
     private bool CanUseAction(PlayerInputActionType actionType)
     {
         PlayerInputAction action = m_inputBuffer.ActionInputBuffer[actionType];
-        if (!m_inputBuffer.CanAct || (!m_feet.IsGrounded && action.AirUses >= action.MaxAirUses)) return false;
+        if (!m_inputBuffer.CanAct || (!Feet.IsGrounded && action.AirUses >= action.MaxAirUses)) return false;
 
         action.AirUses++;
         return true;
@@ -66,19 +66,19 @@ public class PlayerActionExecutor : MonoBehaviour
             //fast fall
             if (m_player.Rb.gravityScale != m_jumpInfo.JumpHeldGravityScale)
             {
-                m_player.Rb.gravityScale = m_player.m_playerMovementInput.y < 0 && m_inputBuffer.CanAct ? m_movementInfo.FastFallGravityScale : 1;
+                m_player.Rb.gravityScale = m_player.PlayerMovementInput.y < 0 && m_inputBuffer.CanAct ? m_movementInfo.FastFallGravityScale : 1;
             }
-            if (m_player.m_playerMovementInput.x != 0f
-                && !(m_feet.IsGrounded && !m_inputBuffer.CanAct))
+            if (m_player.PlayerMovementInput.x != 0f
+                && !(Feet.IsGrounded && !m_inputBuffer.CanAct))
             {
 
                 if (m_currentAction == null || m_currentAction.DirectionChangesUsed < m_currentAction.AllowedDirectionChanges)
                 {
-                    if (m_player.m_playerMovementInput.x > 0.5f)
+                    if (m_player.PlayerMovementInput.x > 0.5f)
                     {
                         m_playerRot = 0f;
                     }
-                    else if (m_player.m_playerMovementInput.x < -0.5f)
+                    else if (m_player.PlayerMovementInput.x < -0.5f)
                     {
                         m_playerRot = 180f;
                     }
@@ -96,11 +96,11 @@ public class PlayerActionExecutor : MonoBehaviour
                 }
                 //if we suddenly change directions, don't keep the current curve's value, reset it as if we stopped moving
                 //so that the player doesn't have sudden changes in movement and teleports around
-                if (m_player.m_playerMovementInput.x > 0 && m_player.Rb.velocity.x < 0
-                    || m_player.m_playerMovementInput.x < 0 && m_player.Rb.velocity.x > 0)
+                if (m_player.PlayerMovementInput.x > 0 && m_player.Rb.velocity.x < 0
+                    || m_player.PlayerMovementInput.x < 0 && m_player.Rb.velocity.x > 0)
                 {
                     m_timeSinceMovementInput = 0f;
-                    if (m_feet.IsGrounded || (!m_feet.IsGrounded && !HasBeenHit))
+                    if (Feet.IsGrounded || (!Feet.IsGrounded && !HasBeenHit))
                         m_player.Rb.velocity = new(m_player.Rb.velocity.x * 0.85f, m_player.Rb.velocity.y);
 
                 }
@@ -108,12 +108,12 @@ public class PlayerActionExecutor : MonoBehaviour
                 {
                     m_timeSinceMovementInput += Time.fixedDeltaTime / m_movementInfo.TimeToReachMaxSpeed;
                 }
-                float MovementSpeed = (m_feet.IsGrounded ? m_movementInfo.GroundMovementSpeed : m_movementInfo.AirMovementSpeed);
+                float MovementSpeed = (Feet.IsGrounded ? m_movementInfo.GroundMovementSpeed : m_movementInfo.AirMovementSpeed);
                 float AddVelX = DontOverrideVelX ? m_player.Rb.velocity.x :
-                        m_player.m_playerMovementInput.normalized.x * MovementSpeed * (1 / m_movementInfo.MovementEvolution.Evaluate(m_timeSinceMovementInput));
+                        m_player.PlayerMovementInput.normalized.x * MovementSpeed * (1 / m_movementInfo.MovementEvolution.Evaluate(m_timeSinceMovementInput));
                 if (Mathf.Abs(m_player.Rb.velocity.x + AddVelX) > MovementSpeed)
                 {
-                    AddVelX = (MovementSpeed - Mathf.Abs(m_player.Rb.velocity.x)) * Mathf.Sign(m_player.m_playerMovementInput.x);
+                    AddVelX = (MovementSpeed - Mathf.Abs(m_player.Rb.velocity.x)) * Mathf.Sign(m_player.PlayerMovementInput.x);
                 }
                 m_player.Rb.AddForce(new Vector2(AddVelX, 0), ForceMode2D.Force);
 
@@ -124,7 +124,7 @@ public class PlayerActionExecutor : MonoBehaviour
             {
                 m_timeSinceMovementInput = 0f;
                 m_player.Rb.velocity = Mathf.Abs(m_player.Rb.velocity.x) > 0.5f ?
-                    new(m_player.Rb.velocity.x * (1 - (m_feet.IsGrounded ? m_inputBuffer.CanAct ? m_movementInfo.GroundDrag : m_movementInfo.AttackGroundDrag : m_movementInfo.AirDrag) * Time.fixedDeltaTime), m_player.Rb.velocity.y)
+                    new(m_player.Rb.velocity.x * (1 - (Feet.IsGrounded ? m_inputBuffer.CanAct ? m_movementInfo.GroundDrag : m_movementInfo.AttackGroundDrag : m_movementInfo.AirDrag) * Time.fixedDeltaTime), m_player.Rb.velocity.y)
                     : new(0, m_player.Rb.velocity.y);
 
                 if (m_inputBuffer.CanAct)
@@ -149,7 +149,7 @@ public class PlayerActionExecutor : MonoBehaviour
                 break;
             default:
                 m_animator.SetInteger("State", (int)actionType + 4); //0 for idle, 1 for walk, 2 for hurt, 3 for dizzy
-                m_animationManager.m_actionInfo = (actionType, actionInfo);
+                m_animationManager.ActionInfo = (actionType, actionInfo);
                 m_currentAction = actionInfo;
                 if(actionInfo.AudioPlayer != null)
                 {

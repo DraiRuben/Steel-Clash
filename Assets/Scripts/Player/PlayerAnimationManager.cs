@@ -5,7 +5,7 @@ public class PlayerAnimationManager : MonoBehaviour
 {
     [NonSerialized] public bool ReduceRecovery;
     private AnimationState m_currentAnimationState;
-    public (PlayerInputActionType type, PlayerInputAction action) m_actionInfo;
+    public (PlayerInputActionType type, PlayerInputAction action) ActionInfo;
     private Animator m_animator;
     private PlayerHealth m_playerHealth;
 
@@ -19,16 +19,16 @@ public class PlayerAnimationManager : MonoBehaviour
         m_playerHealth.IsCountering = false;
         m_currentAnimationState = isNewAnimation == 1 ? AnimationState.StartupFrames : m_currentAnimationState.Next();
         AnimationFrameInfo animationFrameInfo =
-            m_currentAnimationState == AnimationState.StartupFrames ? m_actionInfo.action.StartupFrameInfo :
-            m_currentAnimationState == AnimationState.ActiveFrames ? m_actionInfo.action.ActiveFrames :
-            m_actionInfo.action.RecoveryFrames;
+            m_currentAnimationState == AnimationState.StartupFrames ? ActionInfo.action.StartupFrameInfo :
+            m_currentAnimationState == AnimationState.ActiveFrames ? ActionInfo.action.ActiveFrames :
+            ActionInfo.action.RecoveryFrames;
         float targetSpeed = (float)animationFrameInfo.FrameAnimationAmount / ((float)animationFrameInfo.FrameDuration / 5);
         //for when an attack hit
         if (m_currentAnimationState == AnimationState.RecoveryFrames && ReduceRecovery)
         {
             targetSpeed *= 2;
         }
-        if (m_actionInfo.type == PlayerInputActionType.Counter)
+        if (ActionInfo.type == PlayerInputActionType.Counter)
         {
             m_playerHealth.IsCountering = m_currentAnimationState == AnimationState.ActiveFrames;
         }

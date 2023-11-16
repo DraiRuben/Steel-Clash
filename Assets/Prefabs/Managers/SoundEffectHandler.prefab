@@ -44,7 +44,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bc76520ec1fc28418f7c4d3967f9f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSourcePrefab: {fileID: 7817589391108109599, guid: 159761f962b9e544385396fa55c8787a, type: 3}
-  _hit: {fileID: 0}
-  _counterHit: {fileID: 8300000, guid: b6b37104a0ee7e64da137fae3ed5f482, type: 3}
-  _death: {fileID: 8300000, guid: 9d47b0fe9edd6364aaac04ea0e2f820f, type: 3}
+  m_audioSourcePrefab: {fileID: 7817589391108109599, guid: 159761f962b9e544385396fa55c8787a, type: 3}
+  m_hit:
+  - {fileID: 8300000, guid: 9d52ccb29d9c1c64e9468bbe193b2544, type: 3}
+  - {fileID: 8300000, guid: 36a0c04e1b09e714789a3ddb29757eb4, type: 3}
+  - {fileID: 8300000, guid: a346294d5c96d3f4e897d6eb43eac669, type: 3}
+  - {fileID: 8300000, guid: 8aed8ce3b138dfa4382cf75d3ac99ad9, type: 3}
+  - {fileID: 8300000, guid: c2bc4d68508707c4ebf30634a257cafb, type: 3}
+  - {fileID: 8300000, guid: c977e586c119e14439bac513c8602985, type: 3}
+  - {fileID: 8300000, guid: a62460944b6580c47abe64297558eacd, type: 3}
+  m_counterHit:
+  - {fileID: 8300000, guid: b6b37104a0ee7e64da137fae3ed5f482, type: 3}
+  m_death:
+  - {fileID: 8300000, guid: 9d47b0fe9edd6364aaac04ea0e2f820f, type: 3}

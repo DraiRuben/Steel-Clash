@@ -32,10 +32,10 @@ public class PlayerHealth : MonoBehaviour
             m_lives = value;
             if (m_lives <= 0)
             {
-                PlayerManager.instance.AlivePlayers.Remove(this);
-                if (PlayerManager.instance.AlivePlayers.Count == 1)
+                PlayerManager.Instance.AlivePlayers.Remove(this);
+                if (PlayerManager.Instance.AlivePlayers.Count == 1)
                 {
-                    LevelEnd.instance.DisplayWinMessage(PlayerManager.instance.AlivePlayers[0].PlayerName);
+                    LevelEnd.Instance.DisplayWinMessage(PlayerManager.Instance.AlivePlayers[0].PlayerName);
                     Time.timeScale = 0f;
                 }
             }

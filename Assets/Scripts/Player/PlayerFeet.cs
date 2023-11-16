@@ -13,19 +13,19 @@ public class PlayerFeet : MonoBehaviour
         m_executor = transform.root.GetComponent<PlayerActionExecutor>();
         m_inputBuffer = transform.root.GetComponent<InputBuffer>();
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D _collider)
     {
-        if (collision.CompareTag("Ground"))
+        if (_collider.CompareTag("Ground"))
         {
             IsGrounded = true;
             m_executor.CurrentJumpAmount = 0;
             m_inputBuffer.ResetAirUses();
-            CurrentPlatform = collision.GetComponent<Platform>();
+            CurrentPlatform = _collider.GetComponent<Platform>();
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D _collider)
     {
-        if (collision.CompareTag("Ground"))
+        if (_collider.CompareTag("Ground"))
         {
             IsGrounded = false;
             CurrentPlatform = null;

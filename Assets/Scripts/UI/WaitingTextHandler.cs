@@ -5,41 +5,41 @@ using UnityEngine.InputSystem;
 public class WaitingTextHandler : MonoBehaviour
 {
     #region Variables
-    [SerializeField] GameObject _text;
-    [SerializeField] GameObject _textOutline;
+    [SerializeField] private GameObject m_text;
+    [SerializeField] private GameObject m_textOutline;
 
     [Header("Customizable values")]
-    [SerializeField] float _timeBetweenBlinking;
+    [SerializeField] private float m_timeBetweenBlinking;
     #endregion
 
     #region
     void Start()
     {   
-        StartCoroutine(BlinkingTheText(_text, _textOutline, _timeBetweenBlinking));
+        StartCoroutine(BlinkingTheText(m_text, m_textOutline, m_timeBetweenBlinking));
     }
 
-    IEnumerator BlinkingTheText(GameObject text, GameObject textOutline, float timeBetweenBlinking)
+    IEnumerator BlinkingTheText(GameObject _text, GameObject _textOutline, float _timeBetweenBlinking)
     {
         while (PlayerInputManager.instance.playerCount < 2)
         {
             if (PauseMenuHandler.Instance.gameObject.activeSelf == false)
             {
-                text.SetActive(true);
-                textOutline.SetActive(true);
+                _text.SetActive(true);
+                _textOutline.SetActive(true);
 
-                yield return new WaitForSecondsRealtime(timeBetweenBlinking);
+                yield return new WaitForSecondsRealtime(_timeBetweenBlinking);
 
-                text.SetActive(false);
-                textOutline.SetActive(false);
+                _text.SetActive(false);
+                _textOutline.SetActive(false);
 
-                yield return new WaitForSecondsRealtime(timeBetweenBlinking);
+                yield return new WaitForSecondsRealtime(_timeBetweenBlinking);
             }
             else
             {
-                text.SetActive(false);
-                textOutline.SetActive(false);
+                _text.SetActive(false);
+                _textOutline.SetActive(false);
 
-                yield return new WaitForSecondsRealtime(timeBetweenBlinking);
+                yield return new WaitForSecondsRealtime(_timeBetweenBlinking);
             }
         }
     }

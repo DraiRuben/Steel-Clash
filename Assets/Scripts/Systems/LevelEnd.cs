@@ -9,10 +9,10 @@ public class LevelEnd : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_winMessageOutline;
     [SerializeField] private Button m_restartButton;
 
-    public static LevelEnd instance;
+    public static LevelEnd Instance;
     private void Awake()
     {
-        if (instance == null) instance = this;
+        if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
         gameObject.SetActive(false);

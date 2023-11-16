@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 public class PauseMenuHandler : MonoBehaviour
 {
     #region Variables
-    [SerializeField] GameObject _resumeButton;
+    [SerializeField] private GameObject m_resumeButton;
+    private AudioSource m_audioSource;
 
     public static PauseMenuHandler Instance;
     #endregion
@@ -19,15 +20,18 @@ public class PauseMenuHandler : MonoBehaviour
             Instance = this;
         }
 
+        m_audioSource = GetComponent<AudioSource>();
+
         gameObject.SetActive(false);
     }
     public void PauseGame()
     {
+        m_audioSource.Play();
         if (gameObject.activeSelf != true)
         {
             gameObject.SetActive(true);
             Time.timeScale = 0f;
-            EventSystem.current.SetSelectedGameObject(_resumeButton);
+            EventSystem.current.SetSelectedGameObject(m_resumeButton);
         }
         else
         {

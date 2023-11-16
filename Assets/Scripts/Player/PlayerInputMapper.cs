@@ -5,7 +5,7 @@ public class PlayerInputMapper : MonoBehaviour
 {
     [SerializeField] private PlayerFeet m_feet;
     [NonSerialized] public Rigidbody2D Rb;
-    [NonSerialized] public Vector2 m_playerMovementInput;
+    [NonSerialized] public Vector2 PlayerMovementInput;
     [NonSerialized] public bool IsHoldingJump = false;
     [NonSerialized] public bool IsLookingRight = true;
 
@@ -18,7 +18,7 @@ public class PlayerInputMapper : MonoBehaviour
     }
     public void Movement(InputAction.CallbackContext ctx)
     {
-        m_playerMovementInput = ctx.ReadValue<Vector2>();
+        PlayerMovementInput = ctx.ReadValue<Vector2>();
 
     }
 
@@ -38,7 +38,7 @@ public class PlayerInputMapper : MonoBehaviour
     {
         if (ctx.performed)
         {
-            if(!m_feet.IsGrounded && m_playerMovementInput.y < -0.6f)
+            if(!m_feet.IsGrounded && PlayerMovementInput.y < -0.6f)
             {
                 m_inputBuffer.TryDoAction(PlayerInputActionType.DownAttack);
 
@@ -53,7 +53,7 @@ public class PlayerInputMapper : MonoBehaviour
     {
         if (ctx.performed)
         {
-            if (m_playerMovementInput.y > 0.6f)
+            if (PlayerMovementInput.y > 0.6f)
             {
                 m_inputBuffer.TryDoAction(PlayerInputActionType.UpSpecialAttack);
             }
@@ -75,12 +75,11 @@ public class PlayerInputMapper : MonoBehaviour
         if (ctx.performed && m_feet.IsGrounded && m_feet.CurrentPlatform!=null)
         {
             m_feet.CurrentPlatform.GoThrough();
-            Debug.Log("test");
         }
     }
     public void Pause(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed & LevelEnd.instance.gameObject.activeSelf == false)
+        if (ctx.performed & LevelEnd.Instance.gameObject.activeSelf == false)
         {
             PauseMenuHandler.Instance.PauseGame();
         }
