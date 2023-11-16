@@ -15,9 +15,13 @@ public class HitFeedbackManager : MonoBehaviour
     public void DisplayHit(Vector3 _hitPos,HitType _type)
     {
         if (_type == HitType.Hit)
+        {
             Instantiate(m_hitParticleSystem, _hitPos, Quaternion.identity);
+        }
         else if( _type == HitType.Counter)
+        {
             Instantiate(m_counterParticleSystem, _hitPos, Quaternion.identity);
+        }
     }
     public enum HitType
     {

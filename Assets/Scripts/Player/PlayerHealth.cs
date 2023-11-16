@@ -41,10 +41,6 @@ public class PlayerHealth : MonoBehaviour
             }
         }
     }
-    public void MakeInvincible(int _invincible)
-    {
-        IsInvulnerable = _invincible == 1;
-    }
     public void ApplyKnockBack(int _damageTaken, Rigidbody2D _attackingPlayer)
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
