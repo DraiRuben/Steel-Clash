@@ -12,6 +12,7 @@ public class PlayerActionExecutor : MonoBehaviour
 
     private float m_timeSinceMovementInput = 0f;
     private float m_timeSinceLastJump = 0f;
+    private float m_playerRot = 0f;
 
     [NonSerialized] public int CurrentJumpAmount = 0;
     [NonSerialized] public bool DontOverrideVelX = false;
@@ -73,13 +74,20 @@ public class PlayerActionExecutor : MonoBehaviour
 
                 if (m_currentAction == null || m_currentAction.DirectionChangesUsed < m_currentAction.AllowedDirectionChanges)
                 {
-                    float newRot = m_player.m_playerMovementInput.x < 0 ? 180 : 0;
-                    if (newRot != transform.rotation.eulerAngles.y)
+                    if (m_player.m_playerMovementInput.x > 0.5f)
                     {
-                        m_player.IsLookingRight = newRot == 0f;
+                        m_playerRot = 0f;
+                    }
+                    else if (m_player.m_playerMovementInput.x < -0.5f)
+                    {
+                        m_playerRot = 180f;
+                    }
+                    if (m_playerRot != transform.rotation.eulerAngles.y)
+                    {
+                        m_player.IsLookingRight = m_playerRot == 0f;
                         if (m_currentAction != null)
                             m_currentAction.DirectionChangesUsed++;
-                        transform.rotation = Quaternion.Euler(0, newRot, 0);
+                        transform.rotation = Quaternion.Euler(0, m_playerRot, 0);
                     }
                 }
                 if (HasBeenHit && Mathf.Sign(m_player.Rb.velocity.x) != HitDirX)
@@ -102,7 +110,7 @@ public class PlayerActionExecutor : MonoBehaviour
                 }
                 float MovementSpeed = (m_feet.IsGrounded ? m_movementInfo.GroundMovementSpeed : m_movementInfo.AirMovementSpeed);
                 float AddVelX = DontOverrideVelX ? m_player.Rb.velocity.x :
-                        m_player.m_playerMovementInput.x * MovementSpeed * (1 / m_movementInfo.MovementEvolution.Evaluate(m_timeSinceMovementInput));
+                        m_player.m_playerMovementInput.normalized.x * MovementSpeed * (1 / m_movementInfo.MovementEvolution.Evaluate(m_timeSinceMovementInput));
                 if (Mathf.Abs(m_player.Rb.velocity.x + AddVelX) > MovementSpeed)
                 {
                     AddVelX = (MovementSpeed - Mathf.Abs(m_player.Rb.velocity.x)) * Mathf.Sign(m_player.m_playerMovementInput.x);

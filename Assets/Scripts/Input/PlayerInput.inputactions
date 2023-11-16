@@ -328,7 +328,7 @@
                     "id": "7cc1ec9d-2b92-45a2-bc89-60df8e889bbc",
                     "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "AxisDeadzone",
                     "groups": "Gamepad",
                     "action": "GoThroughPlatform",
                     "isComposite": false,
