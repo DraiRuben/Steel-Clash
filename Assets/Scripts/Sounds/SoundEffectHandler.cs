@@ -51,7 +51,7 @@ public class SoundEffectHandler : MonoBehaviour
         }
     }
 
-    // To optimise this code we can use the Polling method 
+    // To optimise this code we can use the Poolling method 
 
     /// <summary> Create a new GameObject, assigns a audio clip to it and play it, after that the GameObject is Destroy</summary>
     IEnumerator CreatePrefabPlaySoundAndDestroy(AudioClip audioClip)
