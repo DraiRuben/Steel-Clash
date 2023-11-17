@@ -484,6 +484,7 @@ GameObject:
   - component: {fileID: 1567347488499836000}
   - component: {fileID: 7903003545053279226}
   - component: {fileID: 1410551152038516693}
+  - component: {fileID: 7763862412377092467}
   m_Layer: 0
   m_Name: KnightCharacter
   m_TagString: Untagged
@@ -555,7 +556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActionInputBuffer:
-    m_keys: 000000000100000002000000030000000400000005000000
+    m_keys: 00000000010000000200000003000000040000000500000006000000
     m_values:
     - AllowedDirectionChanges: 0
       MaxTimer: 30
@@ -667,6 +668,30 @@ MonoBehaviour:
       ActiveFrames:
         FrameDuration: 5
         FrameAnimationAmount: 4
+      RecoveryFrames:
+        FrameDuration: 6
+        FrameAnimationAmount: 1
+      Damage: 6
+      Weapon: {fileID: 6576297431437843864}
+      VelocityChange: {x: 0, y: 0}
+      AudioPlayer: {fileID: 43113097465998335}
+      SfxToPlay:
+      - {fileID: 8300000, guid: b12cd9cc5cfaf63489ec02ab22e031fa, type: 3}
+      - {fileID: 8300000, guid: 56ef8ea8acc2780418f47444895ebb8d, type: 3}
+      - {fileID: 8300000, guid: fa5a9132e9018434d8c8274a0666da12, type: 3}
+      - {fileID: 8300000, guid: 152a4a0bc26c1ce4ea02044ad5d42587, type: 3}
+      - {fileID: 8300000, guid: 594cd98e46e00e545a3525f81195e95d, type: 3}
+      - {fileID: 8300000, guid: 3fefdb436549a944e99a70c3948505e9, type: 3}
+      - {fileID: 8300000, guid: cbe4490599dfa4142a0cee88a71867ac, type: 3}
+    - AllowedDirectionChanges: 0
+      MaxTimer: 30
+      MaxAirUses: 50
+      StartupFrameInfo:
+        FrameDuration: 7
+        FrameAnimationAmount: 1
+      ActiveFrames:
+        FrameDuration: 5
+        FrameAnimationAmount: 3
       RecoveryFrames:
         FrameDuration: 6
         FrameAnimationAmount: 1
@@ -881,6 +906,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e0a4f88b-e0ca-4dda-aca1-678486010bc5
     m_ActionName: Game/GoThroughPlatform[/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5406983772072192466}
+        m_TargetAssemblyTypeName: PlayerInputMapper, Assembly-CSharp
+        m_MethodName: Dash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 38423bf6-fa91-48c3-87a9-d555bacecbfa
+    m_ActionName: Game/Dash[/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Game
@@ -928,6 +969,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &7763862412377092467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974429354845731865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a6ebd1793b247241a4260b7685ada44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_afterImage: {fileID: 2886812715283617623}
 --- !u!1 &5291326874814843091
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,8 +1009,8 @@ Transform:
   m_GameObject: {fileID: 5291326874814843091}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.102, y: -0.706, z: 0}
-  m_LocalScale: {x: 1.2069, y: 1.431771, z: 1}
+  m_LocalPosition: {x: 0.11, y: -0.61, z: 0}
+  m_LocalScale: {x: 1.2069, y: 1.6409396, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6282278667175146420}
@@ -1092,6 +1146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7548727842704435972}
   - component: {fileID: 2886812715283617623}
+  - component: {fileID: 9114987018928454198}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -1110,7 +1165,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 863318165282889880}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1166,6 +1221,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &9114987018928454198
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7121631454231867953}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 27764d31ec3e62e4f9c798b2210955ff, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7774629622874184565
 GameObject:
   m_ObjectHideFlags: 0

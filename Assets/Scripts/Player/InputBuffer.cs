@@ -5,6 +5,7 @@ using UnityEngine;
 public class InputBuffer : MonoBehaviour
 {
     [NonSerialized] public bool CanAct = true;
+    [NonSerialized] public bool CanDash = true;
     public PlayerMovesDictionary ActionInputBuffer;
 
     private PlayerActionExecutor m_actionExecutor;
@@ -76,7 +77,8 @@ public enum PlayerInputActionType
     SpecialAttack,
     UpSpecialAttack,
     Jump,
-    DownAttack
+    DownAttack,
+    UpAttack
 }
 [Serializable]
 public struct AnimationFrameInfo

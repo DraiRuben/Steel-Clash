@@ -21,6 +21,7 @@ public class PlayerFeet : MonoBehaviour
             m_executor.CurrentJumpAmount = 0;
             m_inputBuffer.ResetAirUses();
             CurrentPlatform = _collider.GetComponent<Platform>();
+            m_inputBuffer.CanDash = true;
         }
     }
     private void OnTriggerExit2D(Collider2D _collider)
