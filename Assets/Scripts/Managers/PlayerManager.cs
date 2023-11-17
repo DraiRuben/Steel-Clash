@@ -41,10 +41,11 @@ public class PlayerManager : MonoBehaviour
 
     public void OnPlayerJoined(PlayerInput _input)
     {
-        // Add the character in a list
+        #region Add the character in a list
         Players.Add(_input.gameObject);
+        #endregion
 
-        #region Instantiation and gestion of the UI for the character
+        #region Instantiation and gestion of the StatsInterface for the character
         GameObject _statsInterface = Instantiate(m_statsInterfacePrefab, m_statsInterfacesParent.transform);
 
         StatsInterfaceHandler _statsInterfaceHandler = _statsInterface.GetComponent<StatsInterfaceHandler>();
@@ -52,7 +53,6 @@ public class PlayerManager : MonoBehaviour
         _statsInterfaceHandler.SetIDTo(m_inputManager.playerCount, m_colorList);
         _statsInterfaceHandler.SetCurrentPourcentageTo(0);
         #endregion
-
 
         #region Character health
         PlayerHealth _health = _input.GetComponent<PlayerHealth>();
@@ -74,8 +74,9 @@ public class PlayerManager : MonoBehaviour
         }
         #endregion
 
-        // Spawn the character
+        #region Spawn the character
         SpawnManager.Instance.PutPlayerAtSpawnPoint(m_inputManager.playerCount, _input.gameObject);
+        #endregion
 
         #region Identification arrow
         IdentificationArrowManager.Instance.InstantiateIdentificationArrow(_input.gameObject, m_colorList);
@@ -83,7 +84,7 @@ public class PlayerManager : MonoBehaviour
     }
     public void OnPlayerLeft(PlayerInput _input)
     {
-        //nothing as of now, however we might want to display a disconnected icon on the UI of the concerned player
+        // Nothing as of now, however we might want to display a disconnected icon on the UI of the concerned player
     }
     #endregion
 }
