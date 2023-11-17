@@ -4519,6 +4519,32 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3959550060291807710, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
   m_PrefabInstance: {fileID: 4217032983021766568}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2072229859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072229854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 5
+  m_ChildAlignment: 7
+  m_Spacing: 10
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1001 &2043653126511441836
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4650,11 +4676,27 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1228658310178809614, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
+      propertyPath: m_ChildAlignment
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1228658310178809614, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
       propertyPath: m_ChildScaleWidth
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1228658310178809614, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
       propertyPath: m_ChildScaleHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1228658310178809614, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
+      propertyPath: m_Padding.m_Bottom
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1228658310178809614, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
+      propertyPath: m_ChildControlWidth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1228658310178809614, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
+      propertyPath: m_ChildControlHeight
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2048562565423812599, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
@@ -4708,7 +4750,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3959550060291807710, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2072229859}
   m_SourcePrefab: {fileID: 100100000, guid: 87670181ef6b6b548b10267a52fea420, type: 3}
 --- !u!1001 &7112596716538281483
 PrefabInstance:
