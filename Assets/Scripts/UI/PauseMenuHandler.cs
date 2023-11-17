@@ -23,9 +23,11 @@ public class PauseMenuHandler : MonoBehaviour
 
         m_audioSource = GetComponent<AudioSource>();
         m_animator = GetComponent<Animator>();
+        gameObject.SetActive(false);
     }
     public void PauseGame()
     {
+        gameObject.SetActive(true);
         m_audioSource.Play();
         if (m_animator.GetInteger("State")==0)
         {
