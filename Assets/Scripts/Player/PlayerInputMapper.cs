@@ -1,9 +1,11 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerInputMapper : MonoBehaviour
 {
     [SerializeField] private PlayerFeet m_feet;
+    [SerializeField] private GameObject m_body;
     [NonSerialized] public Rigidbody2D Rb;
     [NonSerialized] public Vector2 PlayerMovementInput;
     [NonSerialized] public bool IsHoldingJump = false;
@@ -91,6 +93,9 @@ public class PlayerInputMapper : MonoBehaviour
             Rb.velocity = PlayerMovementInput.normalized * 20f;
             m_inputBuffer.CanDash = false;
             m_playerTrail.StartAfterimageTrail(0.5f, 6);
+            StartCoroutine(SetLayer(m_body.layer));
+            m_body.layer = LayerMask.NameToLayer("PlayerIntangible");
+            
         }
     }
     public void Pause(InputAction.CallbackContext ctx)
@@ -99,5 +104,10 @@ public class PlayerInputMapper : MonoBehaviour
         {
             PauseMenuHandler.Instance.PauseGame();
         }
+    }
+    private IEnumerator SetLayer(int _layer)
+    {
+        yield return new WaitForSeconds(1.2f);
+        m_body.layer = _layer;
     }
 }

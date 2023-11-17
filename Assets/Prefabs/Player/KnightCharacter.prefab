@@ -769,6 +769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_feet: {fileID: 8698713282178430685}
+  m_body: {fileID: 5291326874814843091}
 --- !u!114 &1567347488499836000
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -216,6 +216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2670037003803048865}
+  - component: {fileID: 8977801293899383811}
   m_Layer: 0
   m_Name: CameraTarget
   m_TagString: Untagged
@@ -238,6 +239,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4940590614141281813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8977801293899383811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2632076973561811074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 516812044ea376e4697a269e179c2752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_cam: {fileID: 2107781906020823667}
+  m_offset: {x: 0, y: 0, z: 0}
+  m_minZoom: 7
+  m_maxZoom: 17
+  m_zoomLimiter: 50
 --- !u!1 &2686357184462376407
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,8 +266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1685807226079480266}
   - component: {fileID: 2107781906020823667}
-  - component: {fileID: 7098747911718214494}
-  - component: {fileID: 8331242833031933789}
+  - component: {fileID: 7715035060881092131}
   m_Layer: 0
   m_Name: VirtualCamera
   m_TagString: Untagged
@@ -312,7 +329,7 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 4827902635417858340}
---- !u!114 &7098747911718214494
+--- !u!114 &7715035060881092131
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -327,18 +344,6 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 1434508930312769569}
   m_Damping: 0.5
   m_MaxWindowSize: -1
---- !u!114 &8331242833031933789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2686357184462376407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae96a9aa370e4284cba22975202293f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3526289131967010007
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +355,6 @@ GameObject:
   - component: {fileID: 357231753224588911}
   - component: {fileID: 5078775790356892632}
   - component: {fileID: 1434508930312769569}
-  - component: {fileID: 1112402092412050610}
   m_Layer: 15
   m_Name: CameraColliderConfiner
   m_TagString: Untagged
@@ -474,18 +478,6 @@ PolygonCollider2D:
       - {x: 0.5, y: -0.5}
       - {x: 0.5, y: 0.5}
   m_UseDelaunayMesh: 0
---- !u!114 &1112402092412050610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3526289131967010007}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b64d881bf8c19ac4d8db84060e23582b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4364007786178196818
 GameObject:
   m_ObjectHideFlags: 0
