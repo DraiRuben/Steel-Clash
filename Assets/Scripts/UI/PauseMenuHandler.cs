@@ -7,6 +7,7 @@ public class PauseMenuHandler : MonoBehaviour
     #region Variables
     [SerializeField] private GameObject m_resumeButton;
     private AudioSource m_audioSource;
+    private Animator m_animator;
 
     public static PauseMenuHandler Instance;
     #endregion
@@ -21,31 +22,23 @@ public class PauseMenuHandler : MonoBehaviour
         }
 
         m_audioSource = GetComponent<AudioSource>();
-
-        gameObject.SetActive(false);
+        m_animator = GetComponent<Animator>();
     }
     public void PauseGame()
     {
         m_audioSource.Play();
-        if (gameObject.activeSelf != true)
+        if (m_animator.GetInteger("State")==0)
         {
-            gameObject.SetActive(true);
             Time.timeScale = 0f;
+            m_animator.SetInteger("State", 1);
             EventSystem.current.SetSelectedGameObject(m_resumeButton);
         }
         else
         {
-            gameObject.SetActive(false);
             Time.timeScale = 1f;
+            m_animator.SetInteger("State", 0);
             EventSystem.current.SetSelectedGameObject(null);
         }
-    }
-
-    public void Resume()
-    {
-        gameObject.SetActive(false);
-        Time.timeScale = 1f;
-        EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void GoToMainMenuScene()
