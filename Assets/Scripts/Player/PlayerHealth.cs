@@ -48,6 +48,8 @@ public class PlayerHealth : MonoBehaviour
         float kbPower = (float)(Mathf.Log(_damageTaken) * m_percentage) / 9f;
         Vector2 kbDir = (transform.position - _attackingPlayer.transform.position).normalized;
 
+        if (m_actionExecutor.Feet.IsGrounded && kbDir.y < 0.1f)
+            kbDir.y = 1f;
         rb.velocity = Vector3.zero;
         rb.AddForce(kbDir * kbPower, ForceMode2D.Impulse);
         m_actionExecutor.HitDirX = Mathf.Sign(kbDir.x);

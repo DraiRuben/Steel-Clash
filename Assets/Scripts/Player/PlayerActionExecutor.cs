@@ -13,6 +13,7 @@ public class PlayerActionExecutor : MonoBehaviour
     private float m_timeSinceMovementInput = 0f;
     private float m_timeSinceLastJump = 0f;
     private float m_playerRot = 0f;
+    private bool m_trigger;
 
     [NonSerialized] public int CurrentJumpAmount = 0;
     [NonSerialized] public bool DontOverrideVelX = false;
@@ -182,13 +183,20 @@ public class PlayerActionExecutor : MonoBehaviour
         int animationState = m_animator.GetInteger("State");
         if (actionInfo != null && actionInfo.VelocityChange != Vector2.zero)
         {
+            if (actionInfo.WaitForTrigger)
+                yield return new WaitUntil(()=>m_trigger);
             m_player.Rb.velocity = Vector2.zero;
             m_player.Rb.AddForce(actionInfo.VelocityChange, ForceMode2D.Impulse);
             DontOverrideVelX = actionInfo.VelocityChange.x != 0;
+            m_trigger = false;
         }
         yield return new WaitWhile(() => animationState == m_animator.GetInteger("State"));
         m_currentAction = null;
         m_inputBuffer.CanAct = true;
+    }
+    public void TriggerMovement()
+    {
+        m_trigger = true;
     }
     private IEnumerator TryHoldJump()
     {

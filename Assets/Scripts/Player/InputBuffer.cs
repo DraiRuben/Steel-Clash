@@ -64,6 +64,7 @@ public class PlayerInputAction
 
     [Header("Movement")]
     public Vector2 VelocityChange;
+    public bool WaitForTrigger;
 
     [Header("Audio")]
     public AudioSource AudioPlayer;

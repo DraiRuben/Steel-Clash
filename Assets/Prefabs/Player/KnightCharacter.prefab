@@ -269,7 +269,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1934149075077818363}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -568,11 +568,12 @@ MonoBehaviour:
         FrameDuration: 15
         FrameAnimationAmount: 2
       RecoveryFrames:
-        FrameDuration: 20
+        FrameDuration: 14
         FrameAnimationAmount: 1
       Damage: 0
       Weapon: {fileID: 6576297431437843864}
       VelocityChange: {x: 0, y: 0}
+      WaitForTrigger: 0
       AudioPlayer: {fileID: 43113097465998335}
       SfxToPlay:
       - {fileID: 8300000, guid: 041b5a4f7b84fcd4dac90bea472846ad, type: 3}
@@ -591,6 +592,7 @@ MonoBehaviour:
       Damage: 4
       Weapon: {fileID: 6576297431437843864}
       VelocityChange: {x: 0, y: 0}
+      WaitForTrigger: 0
       AudioPlayer: {fileID: 43113097465998335}
       SfxToPlay:
       - {fileID: 8300000, guid: b12cd9cc5cfaf63489ec02ab22e031fa, type: 3}
@@ -604,17 +606,18 @@ MonoBehaviour:
       MaxTimer: 30
       MaxAirUses: 50
       StartupFrameInfo:
-        FrameDuration: 15
+        FrameDuration: 8
         FrameAnimationAmount: 2
       ActiveFrames:
         FrameDuration: 8
         FrameAnimationAmount: 3
       RecoveryFrames:
-        FrameDuration: 14
+        FrameDuration: 9
         FrameAnimationAmount: 1
       Damage: 15
       Weapon: {fileID: 6576297431437843864}
       VelocityChange: {x: 0, y: 0}
+      WaitForTrigger: 0
       AudioPlayer: {fileID: 43113097465998335}
       SfxToPlay:
       - {fileID: 8300000, guid: b3909588512391d47a475d371209dbb1, type: 3}
@@ -633,6 +636,7 @@ MonoBehaviour:
       Damage: 10
       Weapon: {fileID: 6576297431437843864}
       VelocityChange: {x: 0, y: 20}
+      WaitForTrigger: 1
       AudioPlayer: {fileID: 43113097465998335}
       SfxToPlay:
       - {fileID: 8300000, guid: b12cd9cc5cfaf63489ec02ab22e031fa, type: 3}
@@ -657,6 +661,7 @@ MonoBehaviour:
       Damage: 0
       Weapon: {fileID: 0}
       VelocityChange: {x: 0, y: 0}
+      WaitForTrigger: 0
       AudioPlayer: {fileID: 0}
       SfxToPlay: []
     - AllowedDirectionChanges: 0
@@ -674,6 +679,7 @@ MonoBehaviour:
       Damage: 6
       Weapon: {fileID: 6576297431437843864}
       VelocityChange: {x: 0, y: 0}
+      WaitForTrigger: 0
       AudioPlayer: {fileID: 43113097465998335}
       SfxToPlay:
       - {fileID: 8300000, guid: b12cd9cc5cfaf63489ec02ab22e031fa, type: 3}
@@ -698,6 +704,7 @@ MonoBehaviour:
       Damage: 6
       Weapon: {fileID: 6576297431437843864}
       VelocityChange: {x: 0, y: 0}
+      WaitForTrigger: 0
       AudioPlayer: {fileID: 43113097465998335}
       SfxToPlay:
       - {fileID: 8300000, guid: b12cd9cc5cfaf63489ec02ab22e031fa, type: 3}
